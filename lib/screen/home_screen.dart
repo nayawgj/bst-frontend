@@ -1,3 +1,5 @@
+import 'package:booksaeteum/home/new_room.dart';
+import 'package:booksaeteum/home/popular_room.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
@@ -15,8 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
     TextEditingController searchController =
         TextEditingController(); // search controller**
 
-    return Material(
-      child: Scaffold(
+    return MaterialApp(
+      home: Scaffold(
         body: ListView(children: [
           Column(
             children: [
@@ -118,7 +120,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  /*Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const PopularRoom(),
+                                      ));*/
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(
+                                    MaterialPageRoute(
+                                        fullscreenDialog: false,
+                                        builder: (context) =>
+                                            const PopularRoom()),
+                                  );
+                                  /*showModalBottomSheet(
+                                      context: context,
+                                      builder: ((context) =>
+                                          const PopularRoom()));*/
+                                },
                                 icon: const Icon(
                                   Icons.arrow_forward_ios,
                                   color: Color.fromRGBO(32, 96, 79, 1),
@@ -183,7 +203,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(
+                                    MaterialPageRoute(
+                                        fullscreenDialog: false,
+                                        builder: (context) => const NewRoom()),
+                                  );
+                                },
                                 icon: const Icon(
                                   Icons.arrow_forward_ios,
                                   color: Color.fromRGBO(32, 96, 79, 1),

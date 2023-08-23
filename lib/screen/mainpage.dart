@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../home/popular_room.dart';
 import '../sidebar/side_bar.dart';
 import 'book_screen.dart';
 import 'home_screen.dart';
@@ -32,6 +33,15 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //initialRoute: '/',
+      routes: {
+        //'/': (context) => const MainPage(),
+        //'/homescreen': (context) => const HomeScreen(),
+        '/popular': (context) => const PopularRoom(),
+        //'/homescreen/new': (context) => const NewRoom(),
+        //'/mydebate': (context) => const MyDebateScreen(),
+        //'/books': (context) => const BookScreen(),
+      },
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: upbarcolor,

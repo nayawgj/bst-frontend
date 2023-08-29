@@ -1,6 +1,7 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 
-import '../home/popular_room.dart';
 import '../sidebar/side_bar.dart';
 import 'book_screen.dart';
 import 'home_screen.dart';
@@ -8,8 +9,6 @@ import 'mydebate_screen.dart';
 
 // ignore: must_be_immutable
 class MainPage extends StatefulWidget {
-  //Color? upbarcolor = const Color.fromRGBO(32, 96, 79, 0.5);
-
   const MainPage({super.key});
 
   @override
@@ -17,7 +16,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  Color? upbarcolor = const Color.fromRGBO(32, 96, 79, 0.5);
+  // main color
+  Color upbarColor = const Color.fromRGBO(32, 96, 79, 0.5);
 
   // Navigator items
   int _selectedIndex = 0;
@@ -28,23 +28,17 @@ class _MainPageState extends State<MainPage> {
     const BottomNavigationBarItem(label: 'mypage', icon: Icon(Icons.book)),
   ];
 
+  // body list
   List pages = [const HomeScreen(), const MyDebateScreen(), const BookScreen()];
 
+  // build
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //initialRoute: '/',
-      routes: {
-        //'/': (context) => const MainPage(),
-        //'/homescreen': (context) => const HomeScreen(),
-        '/popular': (context) => const PopularRoom(),
-        //'/homescreen/new': (context) => const NewRoom(),
-        //'/mydebate': (context) => const MyDebateScreen(),
-        //'/books': (context) => const BookScreen(),
-      },
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: upbarcolor,
+          backgroundColor: upbarColor,
           elevation: 0.0,
           title: Image.asset('assets/mainlogo.png'),
           centerTitle: true,
@@ -68,6 +62,8 @@ class _MainPageState extends State<MainPage> {
         ),
         endDrawer: const SideBar(),
         body: pages[_selectedIndex],
+
+        // bottom bar
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
               border: Border(
@@ -88,11 +84,11 @@ class _MainPageState extends State<MainPage> {
                 _selectedIndex = index;
 
                 if (_selectedIndex == 0) {
-                  upbarcolor = const Color.fromRGBO(32, 96, 79, 0.5);
+                  upbarColor = const Color.fromRGBO(32, 96, 79, 0.5);
                 }
 
                 if (_selectedIndex == 1 || _selectedIndex == 2) {
-                  upbarcolor = Colors.white;
+                  upbarColor = Colors.white;
                 }
               });
             },

@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.2.1
   gradient_borders: ^1.0.0
+  flutter_native_splash: ^2.3.2
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,13 @@ flutter:
     - assets/line_2.png
     - assets/group.png
     - assets/discussion.png
+    - assets/mainlogo_white.png
+    - assets/book1.png
+    - assets/book2.png
+    - assets/book3.png
+    - assets/kakao_login.png
+    - assets/naver_login.png
+    - assets/splash_screen.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

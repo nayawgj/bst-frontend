@@ -1,3 +1,4 @@
+import 'package:booksaeteum/mydebate/create_debate.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
@@ -11,9 +12,9 @@ class MyDebateScreen extends StatefulWidget {
 class _MyDebateScreenState extends State<MyDebateScreen> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Stack(children: [
+    return Center(
+      child: Stack(
+        children: [
           ListView(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             children: [
@@ -40,14 +41,27 @@ class _MyDebateScreenState extends State<MyDebateScreen> {
                         //spreadRadius: 5
                       ),
                     ]),
-                child: const Column(
-                  children: [
-                    Row(
-                      children: [Text('책 제목'), Text('저자')],
-                    ),
-                    Text('토론 주제'),
-                    Text('#토론 방식')
-                  ],
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text('책 제목'),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text('저자')
+                        ],
+                      ),
+                      Text(
+                        '토론 주제',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text('#토론 방식')
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -76,23 +90,44 @@ class _MyDebateScreenState extends State<MyDebateScreen> {
                         //spreadRadius: 5
                       ),
                     ]),
-                child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text('    책 제목'), Text('    독후감 제목')]),
-              ),
-              Center(
-                child: FloatingActionButton.extended(
-                  onPressed: () {
-                    // Add your onPressed code here!
-                  },
-                  label: const Text('  토론방 만들기  '),
-                  backgroundColor: const Color.fromRGBO(32, 96, 79, 1),
+                    children: [
+                      Row(
+                        children: [
+                          Text('책 제목'),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text('저자')
+                        ],
+                      ),
+                      Text(
+                        '토론 주제',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text('#토론 방식')
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
-        ]),
+          Center(
+            child: FloatingActionButton.extended(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CreateDebate()),
+                );
+              },
+              label: const Text('  토론방 만들기  '),
+              backgroundColor: const Color.fromRGBO(32, 96, 79, 1),
+            ),
+          )
+        ],
       ),
     );
   }

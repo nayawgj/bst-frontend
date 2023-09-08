@@ -16,9 +16,9 @@ class _HomeScreenState extends State<HomeScreen> {
   // main color
   Color maincolor = const Color.fromRGBO(32, 96, 79, 0.5);
   // new window
-  bool _isPopularRoom = false;
-  bool _isNewRoom = false;
-
+  //bool _isPopularRoom = false;
+  //bool _isNewRoom = false;
+/*
   void _showPopularWindow() {
     setState(() {
       _isPopularRoom = true;
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _isNewRoom = false;
     });
-  }
+  }*/
 
   // build
   @override

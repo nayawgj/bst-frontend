@@ -3,9 +3,9 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 
 import '../sidebar/side_bar.dart';
-import 'book_screen.dart';
-import 'home_screen.dart';
-import 'mydebate_screen.dart';
+import '../books/book_screen.dart';
+import '../home/home_screen.dart';
+import '../mydebate/mydebate_screen.dart';
 
 // ignore: must_be_immutable
 class MainPage extends StatefulWidget {

@@ -1,3 +1,4 @@
+import 'package:booksaeteum/mydebate/search_title.dart';
 import 'package:flutter/material.dart';
 
 class CreateDebate extends StatefulWidget {
@@ -55,10 +56,17 @@ class _CreateDebateState extends State<CreateDebate> {
                     width: 1.0,
                   ),
                 ),
-                child: const TextField(
+                child: TextField(
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.search),
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SearchTitle()));
+                        },
+                        icon: const Icon(Icons.search)),
                     border: InputBorder.none,
                   ),
                 ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
-import '../screen/book_screen.dart';
-import '../screen/mydebate_screen.dart';
+import '../books/book_screen.dart';
+import '../mydebate/mydebate_screen.dart';
 import '../sidebar/side_bar.dart';
 
 class NewRoom extends StatefulWidget {

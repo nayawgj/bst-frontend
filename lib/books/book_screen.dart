@@ -67,64 +67,66 @@ class _BookScreenState extends State<BookScreen> {
 
     return MaterialApp(
       home: Scaffold(
-        body: Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 19, vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // search bar
-                    Row(
-                      children: [
-                        Flexible(
-                          flex: 1,
-                          child: Container(
-                            decoration: BoxDecoration(boxShadow: [
-                              BoxShadow(
-                                offset: const Offset(1, 3),
-                                blurRadius: 3,
-                                color: Colors.black.withOpacity(0.5),
-                              )
-                            ]),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 16),
-                                enabledBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color.fromRGBO(32, 96, 79, 1),
-                                    width: 3,
+        body: SingleChildScrollView(
+          child: Container(
+            color: Colors.white,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 19, vertical: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // search bar
+                      Row(
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: Container(
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                  offset: const Offset(1, 3),
+                                  blurRadius: 3,
+                                  color: Colors.black.withOpacity(0.5),
+                                )
+                              ]),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 16),
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color.fromRGBO(32, 96, 79, 1),
+                                      width: 3,
+                                    ),
                                   ),
-                                ),
-                                hintText: '검색어를 입력하세요',
-                                filled: true,
-                                fillColor: Colors.white,
-                                suffixIcon: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset('assets/search.png'),
+                                  hintText: '검색어를 입력하세요',
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  suffixIcon: IconButton(
+                                    onPressed: () {},
+                                    icon: Image.asset('assets/search.png'),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    // Best Seller
-                    const SectionTitle(text: '베스트 셀러'),
-                    BookList(images: best10Books), // Extracted Book List
-                    // New Books
-                    const SectionTitle(text: '신간 도서'),
-                    BookList(images: recent10Books), // Extracted Book List
-                  ],
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      // Best Seller
+                      const SectionTitle(text: '베스트 셀러'),
+                      BookList(images: best10Books), // Extracted Book List
+                      // New Books
+                      const SectionTitle(text: '신간 도서'),
+                      BookList(images: recent10Books), // Extracted Book List
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

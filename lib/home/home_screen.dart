@@ -46,8 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // build
   @override
   Widget build(BuildContext context) {
-    TextEditingController searchController =
-        TextEditingController(); // search controller**
+    TextEditingController searchController = TextEditingController(); // search controller**
     return MaterialApp(
       home: Scaffold(
         body: Stack(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 
+//import 'package:http/http.dart' as http;
+
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
 
@@ -9,31 +11,24 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-  final String naverLoginUri = "http://127.0.0.1:8080/oauth2/authorize/naver";
-  final String kakaoLoginUri = "http://l0.0.2.2:8080/oauth2/authorize/kakao";
-  final String naverRedirectUri =
-      "http://127.0.0.1:8080/login/oauth2/code/naver";
-  final String kakaoRedirectUri =
-      "http://10.0.2.2:8080/login/oauth2/code/kakao";
-
-  // 백엔드가 제공한 로그인 페이지에서 로그인 후 callback 데이터 반환
-  // Naver
-  Future<void> signInToNaver() async {
-    final result = await FlutterWebAuth.authenticate(
-        url: naverLoginUri.toString(), callbackUrlScheme: naverRedirectUri);
-
-    // 백엔드에서 redirect한 callback 데이터 파싱
-    final accessToken = Uri.parse(result).queryParameters['accessToken'];
-    final refreshKey = Uri.parse(result).queryParameters['refreshKey'];
-  }
+  // final kakaoLoginUri = Uri.parse(
+  //     "http://localhost:8080/oauth2/authorize/kakao?redirect_uri=http://localhost:8080/login/oauth2/code/kakao");
 
   // Kakao
   Future<void> signInToKakao() async {
+    const APP_REDIRECT_URI = "http://10.0.2.2:8080/login/oauth2/code/kakao";
+
+    final url = Uri.parse(
+        'http://10.0.2.2:8080/oauth2/authorize/kakao?redirect_uri=$APP_REDIRECT_URI');
+
     final result = await FlutterWebAuth.authenticate(
-        url: kakaoLoginUri.toString(), callbackUrlScheme: kakaoRedirectUri);
+        url: url.toString(), callbackUrlScheme: "webauthcallback");
+
     // 백엔드에서 redirect한 callback 데이터 파싱
     final accessToken = Uri.parse(result).queryParameters['accessToken'];
     final refreshKey = Uri.parse(result).queryParameters['refreshKey'];
+
+    print("카카오 로그인 완료!");
   }
 
   @override
@@ -102,7 +97,7 @@ class _LogInState extends State<LogIn> {
             left: 60,
             top: 350,
             child: GestureDetector(
-              onTap: signInToNaver, // Naver 로그인 함수 호출
+              onTap: signInToKakao, // Naver 로그인 함수 호출
               child: Container(
                 width: 294,
                 height: 44,

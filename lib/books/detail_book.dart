@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-
 class DetailBookScreen extends StatefulWidget {
   final int bookId;
   const DetailBookScreen({super.key, required this.bookId});
@@ -24,14 +23,12 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
 
   Future<void> fetchData(int bookId) async {
     final url = Uri.parse('http://10.0.2.2:8080/api/v1/books/detail/$bookId');
-    final jwtToken = "";
+    final jwtToken =
+        "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IjM2ekFSbGY4WjBvR2hMX2ZBMTgxcThDbmVuRWVZRkNiTVJzMGFiVC1RLXMiLCJpYXQiOjE2OTUxMDQ0MTgsImV4cCI6MTY5NTEwODAxOH0.1xOZbS3ytw4SR55O0Z2HMQqHfSxD9Ld7S_y6r-nrGTE";
 
-    final response = await http.get(
-        url,
-        headers: {
-          'Authorization':'Bearer $jwtToken'
-        });
-    if(response.statusCode == 200){
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
+    if (response.statusCode == 200) {
       final data = jsonDecode(utf8.decode(response.bodyBytes));
       final bookAuthor = data['data']['bookAuthor'] as String;
       final bookImg = data['data']['bookImg'] as String;
@@ -44,12 +41,10 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
         bookData['bookTitle'] = bookTitle;
         bookData['bookPublisher'] = bookPublisher;
       });
-    }else{
+    } else {
       throw Exception('Failed to load data');
     }
   }
-
-
 
   // Custom Container Widget
   Widget customContainer({
@@ -107,11 +102,9 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
                         height: 130,
                         color: const Color.fromRGBO(217, 217, 217, 1),
                         child: bookData['bookImg'] != null
-                          ? Image.network(
-                              bookData['bookImg'],
-                              fit: BoxFit.contain
-                            )
-                          : const CircularProgressIndicator(),
+                            ? Image.network(bookData['bookImg'],
+                                fit: BoxFit.contain)
+                            : const CircularProgressIndicator(),
                       ),
                       const SizedBox(
                         width: 20,
@@ -163,8 +156,8 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
                   onPressed: (index) {
                     setState(() {
                       for (int buttonIndex = 0;
-                      buttonIndex < _isSelected.length;
-                      buttonIndex++) {
+                          buttonIndex < _isSelected.length;
+                          buttonIndex++) {
                         if (buttonIndex == index) {
                           _isSelected[buttonIndex] = true;
                         } else {

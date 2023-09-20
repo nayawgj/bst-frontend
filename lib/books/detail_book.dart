@@ -111,27 +111,44 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            bookData['bookTitle'] ?? 'Loading...',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          Flexible(
+                              child: Container(
+                                constraints: const BoxConstraints(maxWidth: 200),
+                                child: Text(
+                                  bookData['bookTitle'] ?? 'Loading...',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  softWrap: true,
+                                ),
+                              )
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          Text(
-                            bookData['bookAuthor'] ?? 'Loading...',
-                            style: const TextStyle(
-                              fontSize: 14,
-                            ),
+                          Flexible(
+                              child: Container(
+                                constraints: const BoxConstraints(maxWidth: 200),
+                                child: Text(
+                                  bookData['bookAuthor'] ?? 'Loading...',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                  softWrap: true,
+                                ))
                           ),
                           const SizedBox(
                             height: 20,
                           ),
-                          Text(bookData['bookPublisher'] ?? 'Loading...'),
+                          Flexible(
+                              child: Container(
+                                constraints: const BoxConstraints(maxWidth: 200),
+                                child: Text(bookData['bookPublisher'] ?? 'Loading...'),
+                              )
+                          )
                         ],
                       ),
                     ],

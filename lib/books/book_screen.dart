@@ -26,7 +26,7 @@ class _BookScreenState extends State<BookScreen> {
 
   Future<void> fetchBookImages() async {
     final url = Uri.parse('http://10.0.2.2:8080/api/v1/books');
-    final jwtToken = "";
+    final jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IjNkUDNwYWRWRmlmQXY1MkNJWTlDTU1vaDh5eG9iOTdwYWhxSkhUSHM1MDgiLCJpYXQiOjE2OTU1MzQyMjIsImV4cCI6MTY5NTU3MDIyMn0.312jWGVo5OGMxgdfs4i9FPkJzXuscdgEI4xLTJi2AY8";
 
     final response = await http.get(
         url,

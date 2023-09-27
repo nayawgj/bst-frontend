@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -46,8 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // build
   @override
   Widget build(BuildContext context) {
-    TextEditingController searchController =
-        TextEditingController(); // search controller**
+    TextEditingController searchController = TextEditingController(); // search controller**
     return MaterialApp(
       home: Scaffold(
         body: Stack(

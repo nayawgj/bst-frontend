@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:ui';
 
-import 'detail_book.dart';
+import 'package:flutter/material.dart';
 
 class BookScreen extends StatefulWidget {
   const BookScreen({super.key});
@@ -10,14 +11,62 @@ class BookScreen extends StatefulWidget {
 }
 
 class _BookScreenState extends State<BookScreen> {
+  List<List<dynamic>> best10Books = [];
+  List<List<dynamic>> recent10Books = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchBookImages();
+  }
+
+  Future<void> fetchBookImages() async {
+    final url = Uri.parse('http://10.0.2.2:8080/api/v1/books');
+    const jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IjNkUDNwYWRWRmlmQXY1MkNJWTlDTU1vaDh5eG9iOTdwYWhxSkhUSHM1MDgiLCJpYXQiOjE2OTU1MzQyMjIsImV4cCI6MTY5NTU3MDIyMn0.312jWGVo5OGMxgdfs4i9FPkJzXuscdgEI4xLTJi2AY8";
+
+    final response = await http.get(
+        url,
+        headers: {
+          'Authorization':'Bearer $jwtToken'
+        });
+    if(response.statusCode == 200){
+      final data = json.decode(response.body);
+      final tmpBest10Books = data['data']['best10Books'] as List<dynamic>;
+      final tmpRecent10Books = data['data']['recent10Books'] as List<dynamic>;
+
+      final bestBooks = tmpBest10Books.map((book){
+        return [
+            book['bookImg'] as String,
+            book['bookId'] as int,
+          ];
+      }).toList();
+
+      final recentBooks = tmpRecent10Books.map((book){
+        return [
+          book['bookImg'] as String,
+          book['bookId'] as int,
+        ];
+      }).toList();
+
+      setState(() {
+        best10Books = bestBooks;
+        recent10Books = recentBooks;
+      });
+
+    }
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       home: Scaffold(
         body: Container(
           color: Colors.white,
           //const Color.fromRGBO(32, 96, 79, 0.5),
-          child: ListView(
+          child: Column(
             children: [
               Padding(
                   padding:
@@ -27,7 +76,6 @@ class _BookScreenState extends State<BookScreen> {
                     children: [
                       // search bar
                       Row(
-                        //mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Flexible(
                             flex: 1,
@@ -40,22 +88,22 @@ class _BookScreenState extends State<BookScreen> {
                                 )
                               ]),
                               child: TextField(
-                                //controller: searchController,
-                                //onSubmitted: _handleSubmitted,
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 16),
                                   enabledBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Color.fromRGBO(32, 96, 79, 1),
-                                          width: 3)),
+                                    borderSide: BorderSide(
+                                      color: Color.fromRGBO(32, 96, 79, 1),
+                                      width: 3,
+                                    ),
+                                  ),
                                   hintText: '검색어를 입력하세요',
                                   filled: true,
                                   fillColor: Colors.white,
                                   suffixIcon: IconButton(
-                                      onPressed:
-                                          () {}, //searchController.clear,
-                                      icon: Image.asset('assets/search.png')),
+                                    onPressed: () {},
+                                    icon: Image.asset('assets/search.png'),
+                                  ),
                                 ),
                               ),
                             ),
@@ -65,162 +113,20 @@ class _BookScreenState extends State<BookScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      // best seller
+                      // best
                       const Text(
                         '베스트 셀러',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  children: [
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                  ],
-                                )
-                              ],
-                            )),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      // new book
-                      const Text(
-                        '신간 도서',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  children: [
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    bookCover(),
-                                  ],
-                                )
-                              ],
-                            )),
-                      )
                     ],
-                  )),
-            ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class bookCover extends StatelessWidget {
-  const bookCover({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const DetailBookScreen()));
-      },
-      child: Container(
-        width: 90,
-        height: 110,
-        color: Colors.amber,
-      ),
-    );
+    )
   }
 }

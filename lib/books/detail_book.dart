@@ -1,6 +1,13 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:http/http.dart' as http;
+
+import '../sidebar/side_bar.dart';
+
+const jwtToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IjNkUDNwYWRWRmlmQXY1MkNJWTlDTU1vaDh5eG9iOTdwYWhxSkhUSHM1MDgiLCJpYXQiOjE2OTU1MzQyMjIsImV4cCI6MTY5NTU3MDIyMn0.312jWGVo5OGMxgdfs4i9FPkJzXuscdgEI4xLTJi2AY8";
 
 class DetailBookScreen extends StatefulWidget {
   final int bookId;
@@ -166,106 +173,140 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          title: Image.asset('assets/mainlogo.png'),
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Color.fromRGBO(32, 96, 79, 1),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              child: Column(
-                children: [
-                  // book detail
-                  Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 130,
-                        color: const Color.fromRGBO(217, 217, 217, 1),
-                      ),
-                      const SizedBox(
-                        width: 120,
-                      ),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text('젋은 베르테르의 슬픔'),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text('요한 볼프강 폰 괴테'),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text('민용사')
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 5,
-              color: const Color.fromRGBO(217, 217, 217, 1),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            //buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        body: Column(children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            child: Column(
               children: [
-                ToggleButtons(
-                    isSelected: _isSelected,
-                    onPressed: (index) {
-                      setState(() {
-                        for (int buttonIndex = 0;
-                            buttonIndex < _isSelected.length;
-                            buttonIndex++) {
-                          if (buttonIndex == index) {
-                            _isSelected[buttonIndex] = true;
-                          } else {
-                            _isSelected[buttonIndex] = false;
-                          }
-                        }
-                      });
-                    },
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
-                        child: customContainer(
-                          text: '독후감',
-                          isSelected: _isSelected[0],
-                          onPressed: () {},
+                // book detail
+                Row(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 130,
+                      color: const Color.fromRGBO(217, 217, 217, 1),
+                      child: bookData['bookImg'] != null
+                          ? Image.network(bookData['bookImg'],
+                              fit: BoxFit.contain)
+                          : const CircularProgressIndicator(),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(
+                            child: Container(
+                          constraints: const BoxConstraints(maxWidth: 200),
+                          child: Text(
+                            bookData['bookTitle'] ?? 'Loading...',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            softWrap: true,
+                          ),
+                        )),
+                        const SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
-                        child: customContainer(
-                          text: '토론',
-                          isSelected: _isSelected[1],
-                          onPressed: () {},
+                        Flexible(
+                            child: Container(
+                                constraints:
+                                    const BoxConstraints(maxWidth: 200),
+                                child: Text(
+                                  bookData['bookAuthor'] ?? 'Loading...',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                  softWrap: true,
+                                ))),
+                        const SizedBox(
+                          height: 20,
                         ),
-                      ),
-                    ]),
+                        Flexible(
+                            child: Container(
+                          constraints: const BoxConstraints(maxWidth: 200),
+                          child:
+                              Text(bookData['bookPublisher'] ?? 'Loading...'),
+                        ))
+                      ],
+                    ),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 5,
+            color: const Color.fromRGBO(217, 217, 217, 1),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          //buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ToggleButtons(
+                isSelected: _isSelected,
+                onPressed: (index) {
+                  setState(() {
+                    if (index == 0) {
+                      // 독후감
+                      _isSelected[0] = true;
+                      _isSelected[1] = false;
+                      fetchReviewData(widget.bookId);
+                    } else {
+                      _isSelected[0] = false;
+                      _isSelected[1] = true;
+                      fetchDebateData(widget.bookId);
+                    }
+                  });
+                },
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: customContainer(
+                      text: '독후감',
+                      isSelected: _isSelected[0],
+                      onPressed: () {},
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: customContainer(
+                      text: '토론',
+                      isSelected: _isSelected[1],
+                      onPressed: () {},
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Flexible(
+            child: ListView.builder(
+                itemCount: clickedData.length,
+                itemBuilder: (context, index) {
+                  final clickedItem = clickedData[index];
+                  return Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          // NavigationBar.push(context,)
+                        },
+                        child: ListBox(clickedItem: clickedItem),
+                      ));
+                }),
+          ),
+        ]),
       ),
     );
   }

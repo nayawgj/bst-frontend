@@ -50,17 +50,20 @@ class _LogInState extends State<LogIn> {
               ),
             ),
           ),
+          // kakao login
           Positioned(
             left: 60,
             top: 350,
-            child: Container(
-              width: 294,
-              height: 44,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                image: AssetImage('assets/kakao_login.png'),
-                fit: BoxFit.fill,
-              )),
+            child: GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: 294,
+                height: 44,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/kakao_login.png'),
+                        fit: BoxFit.fill)),
+              ),
             ),
           ),
           Positioned(left: 0, top: 360, child: Image.asset('assets/book2.png')),
@@ -77,6 +80,17 @@ class _LogInState extends State<LogIn> {
                 image: AssetImage('assets/naver_login.png'),
                 fit: BoxFit.fill,
               )),
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: 294,
+                  height: 44,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/naver_login.png'),
+                          fit: BoxFit.fill)),
+                ),
+              ),
             ),
           ),
         ],

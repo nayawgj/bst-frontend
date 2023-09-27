@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'detail_book.dart';
+
 class BookScreen extends StatefulWidget {
   const BookScreen({super.key});
 
@@ -15,7 +17,7 @@ class _BookScreenState extends State<BookScreen> {
         body: Container(
           color: Colors.white,
           //const Color.fromRGBO(32, 96, 79, 0.5),
-          child: Column(
+          child: ListView(
             children: [
               Padding(
                   padding:
@@ -63,17 +65,161 @@ class _BookScreenState extends State<BookScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      // best
+                      // best seller
                       const Text(
                         '베스트 셀러',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                  ],
+                                )
+                              ],
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      // new book
+                      const Text(
+                        '신간 도서',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    bookCover(),
+                                  ],
+                                )
+                              ],
+                            )),
+                      )
                     ],
                   )),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class bookCover extends StatelessWidget {
+  const bookCover({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const DetailBookScreen()));
+      },
+      child: Container(
+        width: 90,
+        height: 110,
+        color: Colors.amber,
       ),
     );
   }

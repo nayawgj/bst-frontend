@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class DetailBookScreen extends StatefulWidget {
@@ -27,18 +27,15 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
   Future<void> fetchData(int bookId) async {
     final url = Uri.parse('http://10.0.2.2:8080/api/v1/books/detail/$bookId');
 
-    final response = await http.get(
-        url,
-        headers: {
-          'Authorization':'Bearer $jwtToken'
-        });
-    if(response.statusCode == 200){
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
+    if (response.statusCode == 200) {
       final data = jsonDecode(utf8.decode(response.bodyBytes));
 
       setState(() {
         bookData = data['data'];
       });
-    }else{
+    } else {
       throw Exception('Failed to load data');
     }
   }
@@ -51,15 +48,13 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
      * "reviewerNickname": "test1"
      * "reviewerImg": "asdfasdf"
      */
-    final url = Uri.parse('http://10.0.2.2:8080/api/v1/books/detail/$bookId/review');
+    final url =
+        Uri.parse('http://10.0.2.2:8080/api/v1/books/detail/$bookId/review');
 
-    final response = await http.get(
-      url,
-      headers: {
-        'Authorization': 'Bearer $jwtToken'
-      });
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
 
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       final data = jsonDecode(utf8.decode(response.bodyBytes));
       final reviewData = data['data'];
 
@@ -75,7 +70,7 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
             'leftMid': reviewItem['reviewContent'],
             'debateLock': false,
             'reviewerImg': reviewItem['reviewerImg'],
-            'isReview':true
+            'isReview': true
           };
           clickedData.add(clickedItem);
         }
@@ -91,14 +86,12 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
      * "debatePostCount": 3
      * "debateLock": false
      */
-    final url = Uri.parse('http://10.0.2.2:8080/api/v1/books/detail/$bookId/debate');
-    final response = await http.get(
-      url,
-      headers: {
-        'Authorization':'Bearer $jwtToken'
-      });
+    final url =
+        Uri.parse('http://10.0.2.2:8080/api/v1/books/detail/$bookId/debate');
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
 
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       final data = jsonDecode(utf8.decode(response.bodyBytes));
       final debateData = data['data'];
 
@@ -108,9 +101,9 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
           final debateItem = debateData[i];
           String debateType;
 
-          if(debateItem['debateType']==0){
+          if (debateItem['debateType'] == 0) {
             debateType = "자유 토론";
-          }else{
+          } else {
             debateType = "찬반 토론";
           }
 
@@ -123,15 +116,13 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
             'leftMid': "$debateType / $debPostCnt개의 글",
             'debateLock': debateItem['debateLock'],
             'reviewerImg': null,
-            'isReview':false
+            'isReview': false
           };
           clickedData.add(clickedItem);
         }
       });
     }
   }
-
-
 
   // Custom Container Widget
   Widget customContainer({
@@ -190,99 +181,97 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
             },
           ),
         ),
-        body: Column(children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            child: Column(
-              children: [
-                // book detail
-                Row(
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 130,
-                      color: const Color.fromRGBO(217, 217, 217, 1),
-                    ),
-                    const SizedBox(
-                      width: 120,
-                    ),
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('젋은 베르테르의 슬픔'),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text('요한 볼프강 폰 괴테'),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text('민용사')
-                      ],
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 5,
-            color: const Color.fromRGBO(217, 217, 217, 1),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          //buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ToggleButtons(
-                isSelected: _isSelected,
-                onPressed: (index) {
-                  setState(() {
-                    for (int buttonIndex = 0;
-                        buttonIndex < _isSelected.length;
-                        buttonIndex++) {
-                      if (buttonIndex == index) {
-                        _isSelected[buttonIndex] = true;
-                      } else {
-                        _isSelected[buttonIndex] = false;
-                      }
-                    });
-                  },
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: customContainer(
-                        text: '독후감',
-                        isSelected: _isSelected[0],
-                        onPressed: () {
-                        },
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              child: Column(
+                children: [
+                  // book detail
+                  Row(
+                    children: [
+                      Container(
+                        width: 100,
+                        height: 130,
+                        color: const Color.fromRGBO(217, 217, 217, 1),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: customContainer(
-                        text: '토론',
-                        isSelected: _isSelected[1],
-                        onPressed: () {
-                        },
+                      const SizedBox(
+                        width: 120,
                       ),
-                    ),
-                  )
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('젋은 베르테르의 슬픔'),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text('요한 볼프강 폰 괴테'),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text('민용사')
+                        ],
+                      )
+                    ],
+                  ),
                 ],
               ),
-            ],
-          )
-        ]),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 5,
+              color: const Color.fromRGBO(217, 217, 217, 1),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            //buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ToggleButtons(
+                    isSelected: _isSelected,
+                    onPressed: (index) {
+                      setState(() {
+                        for (int buttonIndex = 0;
+                            buttonIndex < _isSelected.length;
+                            buttonIndex++) {
+                          if (buttonIndex == index) {
+                            _isSelected[buttonIndex] = true;
+                          } else {
+                            _isSelected[buttonIndex] = false;
+                          }
+                        }
+                      });
+                    },
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: customContainer(
+                          text: '독후감',
+                          isSelected: _isSelected[0],
+                          onPressed: () {},
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: customContainer(
+                          text: '토론',
+                          isSelected: _isSelected[1],
+                          onPressed: () {},
+                        ),
+                      ),
+                    ]),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class ListBox extends StatelessWidget{
-
+class ListBox extends StatelessWidget {
   final Map<String, dynamic> clickedItem;
 
   const ListBox({super.key, required this.clickedItem});
@@ -297,7 +286,6 @@ class ListBox extends StatelessWidget{
     final clickedRevImg = clickedItem['reviewerImg'] as String?;
     final clickedIsReview = clickedItem['isReview'] as bool;
 
-
     return Container(
       height: 90,
       // width: 350,
@@ -305,13 +293,10 @@ class ListBox extends StatelessWidget{
       decoration: BoxDecoration(
           color: Colors.white,
           border: const GradientBoxBorder(
-              gradient: LinearGradient(
-                  colors: [
-                    Color.fromRGBO(32, 96, 79, 1),
-                    Color.fromRGBO(245, 245, 245, 1)
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter),
+              gradient: LinearGradient(colors: [
+                Color.fromRGBO(32, 96, 79, 1),
+                Color.fromRGBO(245, 245, 245, 1)
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
               width: 2.5),
           borderRadius: BorderRadius.circular(5),
           boxShadow: [
@@ -330,43 +315,41 @@ class ListBox extends StatelessWidget{
             Row(
               children: [
                 Text(clickedLeftUpper ?? 'Loading...'),
-                if(clickedDebLock)
+                if (clickedDebLock)
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: Transform.scale(
                       scale: 0.7,
-                      child: const Icon(
-                          Icons.lock
-                      ),
+                      child: const Icon(Icons.lock),
                     ),
                   ),
                 const Spacer(),
-                if(clickedIsReview && clickedRevImg != null)
-                    Image.network(
-                      clickedRevImg,
-                      width: 25, // Adjust the size as needed
-                      height: 25,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const CircleAvatar(
-                          radius: 12, // Adjust the size as needed
-                          backgroundColor: Colors.grey,
-                          child: Icon(
-                            Icons.person, // Use any default icon you prefer
-                            size: 20, // Adjust the icon size as needed
-                            ), // Background color for the CircleAvatar
-                        );
-                      },
-                    ),
-                 if(clickedIsReview && clickedRevImg == null)
-                    const CircleAvatar(
-                      radius: 12, // Adjust the size as needed
-                      backgroundColor: Colors.grey,
-                      child: Icon(
+                if (clickedIsReview && clickedRevImg != null)
+                  Image.network(
+                    clickedRevImg,
+                    width: 25, // Adjust the size as needed
+                    height: 25,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const CircleAvatar(
+                        radius: 12, // Adjust the size as needed
+                        backgroundColor: Colors.grey,
+                        child: Icon(
+                          Icons.person, // Use any default icon you prefer
+                          size: 20, // Adjust the icon size as needed
+                        ), // Background color for the CircleAvatar
+                      );
+                    },
+                  ),
+                if (clickedIsReview && clickedRevImg == null)
+                  const CircleAvatar(
+                    radius: 12, // Adjust the size as needed
+                    backgroundColor: Colors.grey,
+                    child: Icon(
                       Icons.person, // Use any default icon you prefer
                       size: 20, // Adjust the icon size as needed
-                      ), // Background color for the CircleAvatar
-                    ),
-                  const SizedBox(width: 10),
+                    ), // Background color for the CircleAvatar
+                  ),
+                const SizedBox(width: 10),
                 Text(clickedRightUpper ?? 'Loading...')
               ],
             ),
@@ -376,5 +359,4 @@ class ListBox extends StatelessWidget{
       ),
     );
   }
-
 }

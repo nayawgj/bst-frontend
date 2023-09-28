@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:booksaeteum/books/review_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
 
 import '../sidebar/side_bar.dart';
 
-final jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IjNkUDNwYWRWRmlmQXY1MkNJWTlDTU1vaDh5eG9iOTdwYWhxSkhUSHM1MDgiLCJpYXQiOjE2OTU1MzQyMjIsImV4cCI6MTY5NTU3MDIyMn0.312jWGVo5OGMxgdfs4i9FPkJzXuscdgEI4xLTJi2AY8";
+final jwtToken = "..";
 
 class DetailBookScreen extends StatefulWidget {
   final int bookId;
@@ -345,50 +346,56 @@ class ListBox extends StatelessWidget{
     final clickedIsReview = clickedItem['isReview'] as bool;
 
 
-    return Container(
-      height: 90,
-      // width: 350,
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border: const GradientBoxBorder(
-              gradient: LinearGradient(
-                  colors: [
-                    Color.fromRGBO(32, 96, 79, 1),
-                    Color.fromRGBO(245, 245, 245, 1)
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter),
-              width: 2.5),
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, 3),
-              blurRadius: 3,
-              color: Colors.black.withOpacity(0.3),
-              //spreadRadius: 5
-            ),
-          ]),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(clickedLeftUpper ?? 'Loading...'),
-                if(clickedDebLock)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5.0),
-                    child: Transform.scale(
-                      scale: 0.7,
-                      child: const Icon(
-                          Icons.lock
+    return GestureDetector(
+      onTap: (){
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context)=> const ReviewDetail())
+        );
+      },
+      child: Container(
+        height: 90,
+        // width: 350,
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: const GradientBoxBorder(
+                gradient: LinearGradient(
+                    colors: [
+                      Color.fromRGBO(32, 96, 79, 1),
+                      Color.fromRGBO(245, 245, 245, 1)
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter),
+                width: 2.5),
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(
+                offset: const Offset(0, 3),
+                blurRadius: 3,
+                color: Colors.black.withOpacity(0.3),
+                //spreadRadius: 5
+              ),
+            ]),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(clickedLeftUpper ?? 'Loading...'),
+                  if(clickedDebLock)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: Transform.scale(
+                        scale: 0.7,
+                        child: const Icon(
+                            Icons.lock
+                        ),
                       ),
                     ),
-                  ),
-                const Spacer(),
-                if(clickedIsReview && clickedRevImg != null)
+                  const Spacer(),
+                  if(clickedIsReview && clickedRevImg != null)
                     Image.network(
                       clickedRevImg,
                       width: 25, // Adjust the size as needed
@@ -400,27 +407,28 @@ class ListBox extends StatelessWidget{
                           child: Icon(
                             Icons.person, // Use any default icon you prefer
                             size: 20, // Adjust the icon size as needed
-                            ), // Background color for the CircleAvatar
+                          ), // Background color for the CircleAvatar
                         );
                       },
                     ),
-                 if(clickedIsReview && clickedRevImg == null)
+                  if(clickedIsReview && clickedRevImg == null)
                     const CircleAvatar(
                       radius: 12, // Adjust the size as needed
                       backgroundColor: Colors.grey,
                       child: Icon(
-                      Icons.person, // Use any default icon you prefer
-                      size: 20, // Adjust the icon size as needed
+                        Icons.person, // Use any default icon you prefer
+                        size: 20, // Adjust the icon size as needed
                       ), // Background color for the CircleAvatar
                     ),
                   const SizedBox(width: 10),
-                Text(clickedRightUpper ?? 'Loading...')
-              ],
-            ),
-            Text(clickedLeftMid ?? 'Loading...')
-          ],
+                  Text(clickedRightUpper ?? 'Loading...')
+                ],
+              ),
+              Text(clickedLeftMid ?? 'Loading...')
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 

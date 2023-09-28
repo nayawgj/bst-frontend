@@ -26,17 +26,19 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <data android:scheme="webauthcallback" android:host="com.bbacks.bst" />
             </intent-filter>
         </activity>
-        <activity android:name="com.linusu.flutter_web_auth.CallbackActivity" android:exported="true" >
+        <activity android:name="com.linusu.flutter_web_auth.CallbackActivity"
+                    android:exported="true" >
             <intent-filter android:label="flutter_web_auth">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="kakaocd92444b40ff44ac8fe89cb204abb194" android:host="oauth" />
             </intent-filter>
         </activity>
-        <activity android:name=".WebViewActivity">
+        <activity android:name=".WebViewActivity"
+        android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -1,4 +1,4 @@
-import 'package:booksaeteum/mydebate/outline.dart';
+import 'package:booksaeteum/mydebate/outline_debate.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
@@ -22,8 +22,10 @@ class _MyDebateScreenState extends State<MyDebateScreen> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Outline()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Outline_Debate()));
                 },
                 child: Container(
                   height: 90,

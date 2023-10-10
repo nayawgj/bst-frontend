@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
 
-import '../sidebar/side_bar.dart';
-
 const jwtToken =
     "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IjNkUDNwYWRWRmlmQXY1MkNJWTlDTU1vaDh5eG9iOTdwYWhxSkhUSHM1MDgiLCJpYXQiOjE2OTU1MzQyMjIsImV4cCI6MTY5NTU3MDIyMn0.312jWGVo5OGMxgdfs4i9FPkJzXuscdgEI4xLTJi2AY8";
 
@@ -135,7 +133,7 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
   Widget customContainer({
     required String text,
     required bool isSelected,
-    required VoidCallback onPressed,
+    required onPressed,
   }) {
     return Container(
       width: 80,
@@ -159,12 +157,7 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
         ],
       ),
       child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
-          ),
-        ),
+        child: onPressed(),
       ),
     );
   }
@@ -173,6 +166,38 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0.0,
+          title: Image.asset('assets/mainlogo.png'),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Color.fromRGBO(32, 96, 79, 1),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          actions: [
+            Builder(
+              builder: (context) => IconButton(
+                onPressed: () => Scaffold.of(context).openEndDrawer(),
+                icon: Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: Image.asset('assets/profile_user.png'))),
+                ),
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              ),
+            )
+          ],
+        ),
         body: Column(children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
@@ -273,7 +298,15 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
                     child: customContainer(
                       text: '독후감',
                       isSelected: _isSelected[0],
-                      onPressed: () {},
+                      onPressed: const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                        child: Column(
+                          children: [
+                            Text('data'),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                   Padding(

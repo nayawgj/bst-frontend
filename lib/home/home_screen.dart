@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:booksaeteum/home/new_room.dart';
 import 'package:booksaeteum/home/popular_room.dart';
 import 'package:booksaeteum/home/search_result.dart';
+import 'package:booksaeteum/models/debate_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,38 +19,56 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // main color
   Color maincolor = const Color.fromRGBO(32, 96, 79, 0.5);
+
+  late Future<List<DebateModel>> bestDebates;
+  late Future<List<DebateModel>> recentDebates;
+
+  @override
+  void initState() {
+    super.initState();
+    bestDebates = getBestDebates();
+    recentDebates = getRecentDebates();
+  }
+
+  Future<List<DebateModel>> getBestDebates() async {
+    List<DebateModel> debateInstances = [];
+    final url = Uri.parse('http://10.0.2.2:8080/main/best');
+    final jwtToken =
+        "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IjI5NTg0MjEzMTMiLCJpYXQiOjE2OTY5NTY0MDEsImV4cCI6MTY5Njk2MDAwMX0.1b7ldzaVBo_yGN7nXdfl-BBck_tszzVrzsNyppclBaU";
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
+    if (response.statusCode == 200) {
+      final data = jsonDecode(utf8.decode(response.bodyBytes))['data'];
+      debateInstances = List<DebateModel>.from(
+        data.map((data) => DebateModel.fromJson(data)),
+      );
+      return debateInstances;
+    }
+    throw Error();
+  }
+
+  Future<List<DebateModel>> getRecentDebates() async {
+    List<DebateModel> debateInstances = [];
+    final url = Uri.parse('http://10.0.2.2:8080/main/new');
+    final jwtToken =
+        "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IjI5NTg0MjEzMTMiLCJpYXQiOjE2OTY5NTY0MDEsImV4cCI6MTY5Njk2MDAwMX0.1b7ldzaVBo_yGN7nXdfl-BBck_tszzVrzsNyppclBaU";
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
+    if (response.statusCode == 200) {
+      final data = jsonDecode(utf8.decode(response.bodyBytes))['data'];
+      debateInstances = List<DebateModel>.from(
+        data.map((data) => DebateModel.fromJson(data)),
+      );
+      return debateInstances;
+    }
+    throw Error();
+  }
+
   // new window
-  //bool _isPopularRoom = false;
-  //bool _isNewRoom = false;
-/*
-  void _showPopularWindow() {
-    setState(() {
-      _isPopularRoom = true;
-    });
-  }
-
-  void _hidePopularWindow() {
-    setState(() {
-      _isPopularRoom = false;
-    });
-  }
-
-  void _showNewWindow() {
-    setState(() {
-      _isNewRoom = true;
-    });
-  }
-
-  void _hideNewWindow() {
-    setState(() {
-      _isNewRoom = false;
-    });
-  }*/
-
-  // build
   @override
   Widget build(BuildContext context) {
-    TextEditingController searchController = TextEditingController(); // search controller**
+    TextEditingController searchController =
+        TextEditingController(); // search controller**
     return MaterialApp(
       home: Scaffold(
         body: Stack(
@@ -163,8 +184,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   const Text(
                                     '인기 토론방',
                                     style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                        fontSize: 23,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   IconButton(
                                       onPressed: () {
@@ -193,38 +214,117 @@ class _HomeScreenState extends State<HomeScreen> {
                                 child: CarouselSlider(
                                   options: CarouselOptions(
                                       autoPlay: true,
-                                      height: 80,
+                                      height: 89,
                                       viewportFraction: 1,
                                       scrollDirection: Axis.vertical),
-                                  items: [1, 2, 3, 4, 5].map((i) {
+                                  items: [0, 1, 2, 3, 4].map((i) {
                                     return Builder(
                                       builder: (BuildContext context) {
                                         return Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            border: const GradientBoxBorder(
-                                                gradient: LinearGradient(
-                                                    colors: [
-                                                      Color.fromRGBO(
-                                                          32, 96, 79, 1),
-                                                      Color.fromRGBO(
-                                                          245, 245, 245, 1)
-                                                    ],
-                                                    begin: Alignment.topCenter,
-                                                    end:
-                                                        Alignment.bottomCenter),
-                                                width: 2.5),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: Text(
-                                            'text $i',
-                                            style:
-                                                const TextStyle(fontSize: 80),
-                                          ),
-                                        );
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: const GradientBoxBorder(
+                                                  gradient: LinearGradient(
+                                                      colors: [
+                                                        Color.fromRGBO(
+                                                            32, 96, 79, 1),
+                                                        Color.fromRGBO(
+                                                            245, 245, 245, 1)
+                                                      ],
+                                                      begin:
+                                                          Alignment.topCenter,
+                                                      end: Alignment
+                                                          .bottomCenter),
+                                                  width: 2.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: FutureBuilder(
+                                                future: bestDebates,
+                                                builder: (context, snapshot) {
+                                                  if (snapshot.hasData) {
+                                                    final bestDebates =
+                                                        snapshot.data!;
+                                                    return Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Padding(
+                                                          padding: EdgeInsets.only(
+                                                              left:
+                                                                  15.0), // 왼쪽 패딩 추가
+                                                          child: Text(
+                                                            bestDebates[i]
+                                                                .title,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                                  'Inter',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              height: 0.11,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 9),
+                                                        Padding(
+                                                          padding: EdgeInsets.only(
+                                                              left:
+                                                                  15.0), // 왼쪽 패딩 추가
+                                                          child: Text(
+                                                            bestDebates[i]
+                                                                .topic,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 17,
+                                                              fontFamily:
+                                                                  'Inter',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              height: 0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 10),
+                                                        Padding(
+                                                          padding: EdgeInsets.only(
+                                                              left:
+                                                                  15.0), // 왼쪽 패딩 추가
+                                                          child: Text(
+                                                            '#자유 #해외문학',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                                  'Inter',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              height: 0.11,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  }
+                                                  return Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  );
+                                                }));
                                       },
                                     );
                                   }).toList(),
@@ -241,8 +341,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   const Text(
                                     '최신 토론방',
                                     style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                        fontSize: 23,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   IconButton(
                                       onPressed: () {
@@ -266,44 +366,122 @@ class _HomeScreenState extends State<HomeScreen> {
                                     offset: const Offset(0, 3),
                                     blurRadius: 3,
                                     color: Colors.black.withOpacity(0.5),
-                                    //spreadRadius: 5
-                                  ),
+                                  )
                                 ]),
                                 child: CarouselSlider(
                                   options: CarouselOptions(
                                       autoPlay: true,
-                                      height: 80,
+                                      height: 89,
                                       viewportFraction: 1,
                                       scrollDirection: Axis.vertical),
-                                  items: [1, 2, 3, 4, 5].map((i) {
+                                  items: [0, 1, 2, 3, 4].map((i) {
                                     return Builder(
                                       builder: (BuildContext context) {
                                         return Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            border: const GradientBoxBorder(
-                                                gradient: LinearGradient(
-                                                    colors: [
-                                                      Color.fromRGBO(
-                                                          32, 96, 79, 1),
-                                                      Color.fromRGBO(
-                                                          245, 245, 245, 1)
-                                                    ],
-                                                    begin: Alignment.topCenter,
-                                                    end:
-                                                        Alignment.bottomCenter),
-                                                width: 2.5),
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          child: Text(
-                                            'text $i',
-                                            style:
-                                                const TextStyle(fontSize: 80),
-                                          ),
-                                        );
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: const GradientBoxBorder(
+                                                  gradient: LinearGradient(
+                                                      colors: [
+                                                        Color.fromRGBO(
+                                                            32, 96, 79, 1),
+                                                        Color.fromRGBO(
+                                                            245, 245, 245, 1)
+                                                      ],
+                                                      begin:
+                                                          Alignment.topCenter,
+                                                      end: Alignment
+                                                          .bottomCenter),
+                                                  width: 2.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                            child: FutureBuilder(
+                                                future: recentDebates,
+                                                builder: (context, snapshot) {
+                                                  if (snapshot.hasData) {
+                                                    final recentDebates =
+                                                        snapshot.data!;
+                                                    return Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Padding(
+                                                          padding: EdgeInsets.only(
+                                                              left:
+                                                                  15.0), // 왼쪽 패딩 추가
+                                                          child: Text(
+                                                            recentDebates[i]
+                                                                .title,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                                  'Inter',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              height: 0.11,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 9),
+                                                        Padding(
+                                                          padding: EdgeInsets.only(
+                                                              left:
+                                                                  15.0), // 왼쪽 패딩 추가
+                                                          child: Text(
+                                                            recentDebates[i]
+                                                                .topic,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 17,
+                                                              fontFamily:
+                                                                  'Inter',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              height: 0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 10),
+                                                        Padding(
+                                                          padding: EdgeInsets.only(
+                                                              left:
+                                                                  15.0), // 왼쪽 패딩 추가
+                                                          child: Text(
+                                                            '#자유 #해외문학',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 14,
+                                                              fontFamily:
+                                                                  'Inter',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              height: 0.11,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  }
+                                                  return Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  );
+                                                }));
                                       },
                                     );
                                   }).toList(),
@@ -319,7 +497,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     // 카테고리
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 17),
+                      padding: EdgeInsets.symmetric(horizontal: 19),
                       child: Column(
                         children: [
                           Row(
@@ -328,7 +506,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 '카테고리',
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                    fontSize: 23, fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),

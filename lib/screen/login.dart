@@ -16,13 +16,14 @@ class _LogInState extends State<LogIn> {
 
   // Kakao
   Future<void> signInToKakao() async {
+    //const APP_REDIRECT_URI = "http://10.0.2.2:8080/login/oauth2/code/kakao";
     const APP_REDIRECT_URI = "http://10.0.2.2:8080/login/oauth2/code/kakao";
 
     final url = Uri.parse(
         'http://10.0.2.2:8080/oauth2/authorize/kakao?redirect_uri=$APP_REDIRECT_URI');
 
     final result = await FlutterWebAuth.authenticate(
-        url: url.toString(), callbackUrlScheme: "webauthcallback");
+        url: url.toString(), callbackUrlScheme: APP_REDIRECT_URI);
 
     // 백엔드에서 redirect한 callback 데이터 파싱
     final accessToken = Uri.parse(result).queryParameters['accessToken'];

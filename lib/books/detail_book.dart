@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
 
-const jwtToken = "..";
+import '../sidebar/side_bar.dart';
+final jwtToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IjI5NTg0MjEzMTMiLCJpYXQiOjE2OTY5NDQ0MTEsImV4cCI6MTY5Njk0ODAxMX0.bULNFnPPkCha9TX0TUqxCTezSB5FTNX8cYxaCmHJpHI.312jWGVo5OGMxgdfs4i9FPkJzXuscdgEI4xLTJi2AY8";
+
 
 class DetailBookScreen extends StatefulWidget {
   final int bookId;
@@ -30,6 +33,8 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
 
   Future<void> fetchData(int bookId) async {
     final url = Uri.parse('http://10.0.2.2:8080/api/v1/books/detail/$bookId');
+    final jwtToken =
+        "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IjI5NTg0MjEzMTMiLCJpYXQiOjE2OTY5NDQ0MTEsImV4cCI6MTY5Njk0ODAxMX0.bULNFnPPkCha9TX0TUqxCTezSB5FTNX8cYxaCmHJpHI";
 
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
@@ -323,6 +328,7 @@ class ListBox extends StatelessWidget {
     final clickedDebLock = clickedItem['debateLock'] as bool;
     final clickedRevImg = clickedItem['reviewerImg'] as String?;
     final clickedIsReview = clickedItem['isReview'] as bool;
+
 
     return GestureDetector(
         onTap: () {},

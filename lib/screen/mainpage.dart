@@ -29,7 +29,7 @@ class _MainPageState extends State<MainPage> {
   ];
 
   // body list
-  List pages = [const HomeScreen(), const MyDebateScreen(), const BookScreen()];
+  List pages = [HomeScreen(), const MyDebateScreen(), const BookScreen()];
 
   // build
   @override

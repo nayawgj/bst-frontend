@@ -7,7 +7,10 @@ import 'package:http/http.dart' as http;
 
 import '../sidebar/side_bar.dart';
 
-final jwtToken = "..";
+import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
+
+
+const jwtToken = jwt.jwtToken;
 
 class DetailBookScreen extends StatefulWidget {
   final int bookId;
@@ -349,7 +352,7 @@ class ListBox extends StatelessWidget{
     return GestureDetector(
       onTap: (){
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context)=> const ReviewDetail())
+          MaterialPageRoute(builder: (context)=> ReviewDetail(reviewId: clickedId))
         );
       },
       child: Container(

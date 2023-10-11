@@ -1,8 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
+
+
+const jwtToken = jwt.jwtToken;
 
 class ReviewDetail extends StatefulWidget{
-  const ReviewDetail({super.key});
+  final int reviewId;
+  const ReviewDetail({super.key, required this.reviewId});
 
   @override
   State<StatefulWidget> createState() => _ReviewDetailState();
@@ -10,92 +18,157 @@ class ReviewDetail extends StatefulWidget{
 }
 
 class _ReviewDetailState extends State<ReviewDetail>{
+  Map<String, dynamic> reviewData = {};
+  List<dynamic> commentData = [];
+  bool bookmarked = true;
+
+  @override
+  void initState(){
+    fetchData(widget.reviewId);
+  }
+
+  Future<void> fetchData(int reviewId) async {
+    final url = Uri.parse('http://10.0.2.2:8080/api/v1/review/$reviewId');
+
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization':'Bearer $jwtToken'
+      });
+    if(response.statusCode == 200){
+      final data = jsonDecode(utf8.decode(response.bodyBytes));
+
+      setState(() {
+        reviewData = data['data'];
+        commentData = reviewData['reviewComments'];
+        bookmarked = reviewData['bookmarked'] as bool;
+      });
+    }else{
+      throw Exception("Failed to load data");
+    }
+  }
+
+  void toggleBookmark() async {
+    final reviewId = widget.reviewId;
+    final url = Uri.parse("http://10.0.2.2:8080/api/v1/review/$reviewId/bookmark");
+
+    try{
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'Bearer $jwtToken',
+        },
+      );
+      if(response.statusCode == 200){
+        setState(() {
+          bookmarked = !bookmarked;
+        });
+      }else{
+        debugPrint('bookmark review NOT 200 status');
+      }
+    }catch(e){
+      debugPrint('bookmark review ERROR');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final reviewTitle = reviewData['reviewTitle'] as String?;
+    var reviewerPhoto = reviewData['reviewerPhoto'];
+    final reviewerNickname = reviewData['reviewerNickname'];
+    // var bookmarked = reviewData['bookmarked'] as bool;
+    final reviewContent = reviewData['reviewContent'] as String?;
+    var reviewImg = reviewData['reviewImg'];
+
+
     return MaterialApp(
       home: Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: Colors.white,
-        //   elevation: 0.0,
-        //   title: const Text(
-        //     '독후감 상세보기',
-        //     style: TextStyle(color: Colors.black),
-        //   ),
-        //   centerTitle: true,
-        //   leading: IconButton(
-        //     icon: const Icon(
-        //       Icons.arrow_back_ios,
-        //       color: Color.fromRGBO(32, 96, 79, 1),
-        //     ),
-        //     onPressed: () {
-        //       Navigator.of(context).pop();
-        //     },
-        //   ),
-        //   actions: [
-        //     Builder(
-        //       builder: (context) => IconButton(
-        //         onPressed: () => Scaffold.of(context).openEndDrawer(),
-        //         icon: Padding(
-        //           padding: const EdgeInsets.only(right: 15),
-        //           child: SizedBox(
-        //               height: 30,
-        //               width: 30,
-        //               child: FittedBox(
-        //                   fit: BoxFit.cover,
-        //                   child: Image.asset('assets/profile_user.png'))),
-        //         ),
-        //         tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-        //       ),
-        //     )
-        //   ],
-        // ),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                  padding: EdgeInsets.all(16.0),
+              Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    '독후감',
-                    style: TextStyle(
+                    reviewTitle ?? "",
+                    style: const TextStyle(
                         fontSize: 23.0,
                         fontWeight: FontWeight.bold
                     ),
                   )
               ),
-              const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0), // Adjust vertical padding here
-                  child: Text(
-                    '닉네임',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                    ),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0), // Adjust vertical padding here
+                  child: Row(
+                    children: [
+                      Image.network(
+                        reviewerPhoto ?? "",
+                        width: 25,
+                        height: 25,
+                        errorBuilder: (context, error, stackTrace){
+                          return const CircleAvatar(
+                            radius: 12,
+                            backgroundColor: Colors.grey,
+                            child: Icon(
+                              Icons.person,
+                              size: 20,
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        reviewerNickname ?? "",
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: (){
+                          toggleBookmark();
+                        },
+                        child: Icon(
+                            bookmarked ? Icons.bookmark : Icons.bookmark_border,
+                            size: 24.0,
+                            color: Colors.blue
+                        ),
+                      )
+
+                    ],
                   )
               ),
-              const Padding(
-                padding: EdgeInsets.all(16.0),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  'Description Text Description Text Description Text Description Text Description Text Description Text Description Text Description Text Description Text Description Text Description Text Description Text Description Text ',
-                  style: TextStyle(
+                  reviewContent ?? "",
+                  style: const TextStyle(
                     fontSize: 16.0,
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Image.network(
-                  'https://example.com/image_url.jpg', // Replace with your image URL
-                  width: 200.0,
-                  height: 200.0,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace){
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
+                child: Visibility(
+                  visible: reviewImg != null,
+                  child: Center(
+                    child: Image.network(
+                      reviewImg != null ?
+                      "https://mybst.s3.ap-northeast-2.amazonaws.com/$reviewImg"
+                      : '', // Replace with your image URL
+                      width: 200.0,
                       height: 200.0,
-                      color: Colors.grey,
-                    );
-                  },
-                ),
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace){
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 200.0,
+                          color: Colors.grey,
+                        );
+                      },
+                    )
+                  )
+                )
               ),
               const Divider(
                 color: Colors.black,
@@ -114,19 +187,42 @@ class _ReviewDetailState extends State<ReviewDetail>{
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: List.generate(10, (index) {
-                  return const Column(
+                children: List.generate(commentData.length, (index) {
+                  return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Text("닉네임"),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16.0, top: 8.0),
+                            child: Image.network(
+                              commentData[index]['commenterImg'] ?? "",
+                              width: 25,
+                              height: 25,
+                              errorBuilder: (context, error, stackTrace){
+                                return const CircleAvatar(
+                                  radius: 12,
+                                  backgroundColor: Colors.grey,
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 20,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 4.0, top: 8.0, bottom: 4.0),
+                            child: Text(commentData[index]["commenterNickname"] ?? ""),
+                          ),
+                        ],
                       ),
                       Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Text('동감해요... 미르띤...'),
+                        padding: const EdgeInsets.only(left: 16.0, right: 16.0, top:8.0, bottom: 16.0),
+                        child: Text(commentData[index]["commentText"] ?? ""),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Divider(
                           color: Colors.grey,

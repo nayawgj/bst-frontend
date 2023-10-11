@@ -21,32 +21,43 @@ class _SideBarState extends State<SideBar> {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 27),
         children: <Widget>[
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+              IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.notifications,
+                    color: Color.fromRGBO(32, 96, 79, 1),
+                    size: 30,
+                  )),
+              Row(
                 children: [
-                  Text(
-                    '책 읽는 뿡이',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        '책 읽는 뿡이',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        '레벨 7',
+                        style: TextStyle(color: Colors.black, fontSize: 15),
+                      ),
+                    ],
                   ),
-                  Text(
-                    '레벨 7',
-                    style: TextStyle(color: Colors.black, fontSize: 15),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Image.asset(
+                    'assets/profile_user.png',
+                    width: 55,
+                    height: 55,
                   ),
                 ],
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Image.asset(
-                'assets/profile_user.png',
-                width: 55,
-                height: 55,
-              ),
+              )
             ],
           ),
           const SizedBox(
@@ -185,6 +196,19 @@ class _SideBarState extends State<SideBar> {
                                 builder: (context) => const Alert()));
                           },
                           child: const Text('알림 설정 ',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 17)))
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const Alert()));
+                          },
+                          child: const Text('로그 아웃 ',
                               style:
                                   TextStyle(color: Colors.black, fontSize: 17)))
                     ],

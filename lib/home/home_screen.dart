@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
 
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -544,7 +545,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            // popular room
           ],
         ),
       ),
@@ -558,26 +558,11 @@ class MyCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        color: Colors.grey,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-            child: Text(
-              text,
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500),
-            ),
-          )
-        ],
-      ),
+    return MaterialButton(
+      color: const Color.fromRGBO(217, 217, 217, 1),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      onPressed: () {},
+      child: Text(text),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:booksaeteum/mydebate/search_title.dart';
 import 'package:flutter/material.dart';
 
+// 토론방 개요 페이지
 class CreateDebate extends StatefulWidget {
   const CreateDebate({super.key});
 

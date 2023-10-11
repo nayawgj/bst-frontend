@@ -5,7 +5,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -16,38 +15,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // main color
   Color maincolor = const Color.fromRGBO(32, 96, 79, 0.5);
-  // new window
-  //bool _isPopularRoom = false;
-  //bool _isNewRoom = false;
-/*
-  void _showPopularWindow() {
-    setState(() {
-      _isPopularRoom = true;
-    });
-  }
-
-  void _hidePopularWindow() {
-    setState(() {
-      _isPopularRoom = false;
-    });
-  }
-
-  void _showNewWindow() {
-    setState(() {
-      _isNewRoom = true;
-    });
-  }
-
-  void _hideNewWindow() {
-    setState(() {
-      _isNewRoom = false;
-    });
-  }*/
 
   // build
   @override
   Widget build(BuildContext context) {
-    TextEditingController searchController = TextEditingController(); // search controller**
+    TextEditingController searchController =
+        TextEditingController(); // search controller**
     return MaterialApp(
       home: Scaffold(
         body: Stack(
@@ -366,7 +339,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            // popular room
           ],
         ),
       ),
@@ -380,26 +352,11 @@ class MyCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
-        color: Colors.grey,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-            child: Text(
-              text,
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500),
-            ),
-          )
-        ],
-      ),
+    return MaterialButton(
+      color: const Color.fromRGBO(217, 217, 217, 1),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      onPressed: () {},
+      child: Text(text),
     );
   }
 }

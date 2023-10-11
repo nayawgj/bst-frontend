@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
 
-const jwtToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IjNkUDNwYWRWRmlmQXY1MkNJWTlDTU1vaDh5eG9iOTdwYWhxSkhUSHM1MDgiLCJpYXQiOjE2OTU1MzQyMjIsImV4cCI6MTY5NTU3MDIyMn0.312jWGVo5OGMxgdfs4i9FPkJzXuscdgEI4xLTJi2AY8";
+const jwtToken = "..";
 
 class DetailBookScreen extends StatefulWidget {
   final int bookId;
@@ -133,7 +132,7 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
   Widget customContainer({
     required String text,
     required bool isSelected,
-    required onPressed,
+    required VoidCallback onPressed,
   }) {
     return Container(
       width: 80,
@@ -157,7 +156,12 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
         ],
       ),
       child: Center(
-        child: onPressed(),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.black,
+          ),
+        ),
       ),
     );
   }
@@ -166,38 +170,6 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          title: Image.asset('assets/mainlogo.png'),
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Color.fromRGBO(32, 96, 79, 1),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          actions: [
-            Builder(
-              builder: (context) => IconButton(
-                onPressed: () => Scaffold.of(context).openEndDrawer(),
-                icon: Padding(
-                  padding: const EdgeInsets.only(right: 15),
-                  child: SizedBox(
-                      height: 30,
-                      width: 30,
-                      child: FittedBox(
-                          fit: BoxFit.cover,
-                          child: Image.asset('assets/profile_user.png'))),
-                ),
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              ),
-            )
-          ],
-        ),
         body: Column(children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
@@ -298,15 +270,7 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
                     child: customContainer(
                       text: '독후감',
                       isSelected: _isSelected[0],
-                      onPressed: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                        child: Column(
-                          children: [
-                            Text('data'),
-                          ],
-                        ),
-                      ),
+                      onPressed: () {},
                     ),
                   ),
                   Padding(
@@ -360,77 +324,79 @@ class ListBox extends StatelessWidget {
     final clickedRevImg = clickedItem['reviewerImg'] as String?;
     final clickedIsReview = clickedItem['isReview'] as bool;
 
-    return Container(
-      height: 90,
-      // width: 350,
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border: const GradientBoxBorder(
-              gradient: LinearGradient(colors: [
-                Color.fromRGBO(32, 96, 79, 1),
-                Color.fromRGBO(245, 245, 245, 1)
-              ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-              width: 2.5),
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(
-              offset: const Offset(0, 3),
-              blurRadius: 3,
-              color: Colors.black.withOpacity(0.3),
-              //spreadRadius: 5
-            ),
-          ]),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+    return GestureDetector(
+        onTap: () {},
+        child: Container(
+          height: 90,
+          // width: 350,
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: const GradientBoxBorder(
+                  gradient: LinearGradient(colors: [
+                    Color.fromRGBO(32, 96, 79, 1),
+                    Color.fromRGBO(245, 245, 245, 1)
+                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+                  width: 2.5),
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: [
+                BoxShadow(
+                  offset: const Offset(0, 3),
+                  blurRadius: 3,
+                  color: Colors.black.withOpacity(0.3),
+                  //spreadRadius: 5
+                ),
+              ]),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(clickedLeftUpper ?? 'Loading...'),
-                if (clickedDebLock)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5.0),
-                    child: Transform.scale(
-                      scale: 0.7,
-                      child: const Icon(Icons.lock),
-                    ),
-                  ),
-                const Spacer(),
-                if (clickedIsReview && clickedRevImg != null)
-                  Image.network(
-                    clickedRevImg,
-                    width: 25, // Adjust the size as needed
-                    height: 25,
-                    errorBuilder: (context, error, stackTrace) {
-                      return const CircleAvatar(
+                Row(
+                  children: [
+                    Text(clickedLeftUpper ?? 'Loading...'),
+                    if (clickedDebLock)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5.0),
+                        child: Transform.scale(
+                          scale: 0.7,
+                          child: const Icon(Icons.lock),
+                        ),
+                      ),
+                    const Spacer(),
+                    if (clickedIsReview && clickedRevImg != null)
+                      Image.network(
+                        clickedRevImg,
+                        width: 25, // Adjust the size as needed
+                        height: 25,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const CircleAvatar(
+                            radius: 12, // Adjust the size as needed
+                            backgroundColor: Colors.grey,
+                            child: Icon(
+                              Icons.person, // Use any default icon you prefer
+                              size: 20, // Adjust the icon size as needed
+                            ), // Background color for the CircleAvatar
+                          );
+                        },
+                      ),
+                    if (clickedIsReview && clickedRevImg == null)
+                      const CircleAvatar(
                         radius: 12, // Adjust the size as needed
                         backgroundColor: Colors.grey,
                         child: Icon(
                           Icons.person, // Use any default icon you prefer
                           size: 20, // Adjust the icon size as needed
                         ), // Background color for the CircleAvatar
-                      );
-                    },
-                  ),
-                if (clickedIsReview && clickedRevImg == null)
-                  const CircleAvatar(
-                    radius: 12, // Adjust the size as needed
-                    backgroundColor: Colors.grey,
-                    child: Icon(
-                      Icons.person, // Use any default icon you prefer
-                      size: 20, // Adjust the icon size as needed
-                    ), // Background color for the CircleAvatar
-                  ),
-                const SizedBox(width: 10),
-                Text(clickedRightUpper ?? 'Loading...')
+                      ),
+                    const SizedBox(width: 10),
+                    Text(clickedRightUpper ?? 'Loading...')
+                  ],
+                ),
+                Text(clickedLeftMid ?? 'Loading...')
               ],
             ),
-            Text(clickedLeftMid ?? 'Loading...')
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }

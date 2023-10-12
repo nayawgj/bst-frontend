@@ -37,18 +37,15 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
   Future<void> fetchData(int bookId) async {
     final url = Uri.parse('http://10.0.2.2:8080/api/v1/books/detail/$bookId');
 
-    final response = await http.get(
-        url,
-        headers: {
-          'Authorization':'Bearer $jwtToken'
-        });
-    if(response.statusCode == 200){
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
+    if (response.statusCode == 200) {
       final data = jsonDecode(utf8.decode(response.bodyBytes));
 
       setState(() {
         bookData = data['data'];
       });
-    }else{
+    } else {
       throw Exception('Failed to load data');
     }
   }
@@ -61,15 +58,13 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
      * "reviewerNickname": "test1"
      * "reviewerImg": "asdfasdf"
      */
-    final url = Uri.parse('http://10.0.2.2:8080/api/v1/books/detail/$bookId/review');
+    final url =
+        Uri.parse('http://10.0.2.2:8080/api/v1/books/detail/$bookId/review');
 
-    final response = await http.get(
-      url,
-      headers: {
-        'Authorization': 'Bearer $jwtToken'
-      });
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
 
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       final data = jsonDecode(utf8.decode(response.bodyBytes));
       final reviewData = data['data'];
 
@@ -85,7 +80,7 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
             'leftMid': reviewItem['reviewContent'],
             'debateLock': false,
             'reviewerImg': reviewItem['reviewerImg'],
-            'isReview':true
+            'isReview': true
           };
           clickedData.add(clickedItem);
         }
@@ -101,14 +96,12 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
      * "debatePostCount": 3
      * "debateLock": false
      */
-    final url = Uri.parse('http://10.0.2.2:8080/api/v1/books/detail/$bookId/debate');
-    final response = await http.get(
-      url,
-      headers: {
-        'Authorization':'Bearer $jwtToken'
-      });
+    final url =
+        Uri.parse('http://10.0.2.2:8080/api/v1/books/detail/$bookId/debate');
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
 
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       final data = jsonDecode(utf8.decode(response.bodyBytes));
       final debateData = data['data'];
 
@@ -118,9 +111,9 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
           final debateItem = debateData[i];
           String debateType;
 
-          if(debateItem['debateType']==0){
+          if (debateItem['debateType'] == 0) {
             debateType = "자유 토론";
-          }else{
+          } else {
             debateType = "찬반 토론";
           }
 
@@ -133,15 +126,13 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
             'leftMid': "$debateType / $debPostCnt개의 글",
             'debateLock': debateItem['debateLock'],
             'reviewerImg': null,
-            'isReview':false
+            'isReview': false
           };
           clickedData.add(clickedItem);
         }
       });
     }
   }
-
-
 
   // Custom Container Widget
   Widget customContainer({
@@ -185,131 +176,126 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              child: Column(
-                children: [
-                  // book detail
-                  Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 130,
-                        color: const Color.fromRGBO(217, 217, 217, 1),
-                        child: bookData['bookImg'] != null
-                          ? Image.network(
-                              bookData['bookImg'],
-                              fit: BoxFit.contain
-                            )
+        body: Column(children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            child: Column(
+              children: [
+                // book detail
+                Row(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 130,
+                      color: const Color.fromRGBO(217, 217, 217, 1),
+                      child: bookData['bookImg'] != null
+                          ? Image.network(bookData['bookImg'],
+                              fit: BoxFit.contain)
                           : const CircularProgressIndicator(),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Flexible(
-                              child: Container(
-                                constraints: const BoxConstraints(maxWidth: 200),
-                                child: Text(
-                                  bookData['bookTitle'] ?? 'Loading...',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  softWrap: true,
-                                ),
-                              )
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(
+                            child: Container(
+                          constraints: const BoxConstraints(maxWidth: 200),
+                          child: Text(
+                            bookData['bookTitle'] ?? 'Loading...',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            softWrap: true,
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Flexible(
-                              child: Container(
-                                constraints: const BoxConstraints(maxWidth: 200),
+                        )),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Flexible(
+                            child: Container(
+                                constraints:
+                                    const BoxConstraints(maxWidth: 200),
                                 child: Text(
                                   bookData['bookAuthor'] ?? 'Loading...',
                                   style: const TextStyle(
                                     fontSize: 14,
                                   ),
                                   softWrap: true,
-                                ))
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Flexible(
-                              child: Container(
-                                constraints: const BoxConstraints(maxWidth: 200),
-                                child: Text(bookData['bookPublisher'] ?? 'Loading...'),
-                              )
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 5,
-              color: const Color.fromRGBO(217, 217, 217, 1),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            //buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ToggleButtons(
-                  isSelected: _isSelected,
-                  onPressed: (index) {
-                    setState(() {
-                      if(index == 0){ // 독후감
-                        _isSelected[0] = true;
-                        _isSelected[1] = false;
-                        fetchReviewData(widget.bookId);
-                      }else{
-                        _isSelected[0] = false;
-                        _isSelected[1] = true;
-                        fetchDebateData(widget.bookId);
-                      }
-                    });
-                  },
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: customContainer(
-                        text: '독후감',
-                        isSelected: _isSelected[0],
-                        onPressed: () {
-                        },
-                      ),
+                                ))),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Flexible(
+                            child: Container(
+                          constraints: const BoxConstraints(maxWidth: 200),
+                          child:
+                              Text(bookData['bookPublisher'] ?? 'Loading...'),
+                        ))
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: customContainer(
-                        text: '토론',
-                        isSelected: _isSelected[1],
-                        onPressed: () {
-                        },
-                      ),
-                    )
                   ],
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Flexible(
-              child: ListView.builder(
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 5,
+            color: const Color.fromRGBO(217, 217, 217, 1),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          //buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ToggleButtons(
+                isSelected: _isSelected,
+                onPressed: (index) {
+                  setState(() {
+                    if (index == 0) {
+                      // 독후감
+                      _isSelected[0] = true;
+                      _isSelected[1] = false;
+                      fetchReviewData(widget.bookId);
+                    } else {
+                      _isSelected[0] = false;
+                      _isSelected[1] = true;
+                      fetchDebateData(widget.bookId);
+                    }
+                  });
+                },
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: customContainer(
+                      text: '독후감',
+                      isSelected: _isSelected[0],
+                      onPressed: () {},
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: customContainer(
+                      text: '토론',
+                      isSelected: _isSelected[1],
+                      onPressed: () {},
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Flexible(
+            child: ListView.builder(
                 itemCount: clickedData.length,
                 itemBuilder: (context, index) {
                   final clickedItem = clickedData[index];
@@ -320,20 +306,16 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
                           // NavigationBar.push(context,)
                         },
                         child: ListBox(clickedItem: clickedItem),
-                      )
-                  );
-                }
-              ),
-            ),
-          ]
-        ),
+                      ));
+                }),
+          ),
+        ]),
       ),
     );
   }
 }
 
-class ListBox extends StatelessWidget{
-
+class ListBox extends StatelessWidget {
   final Map<String, dynamic> clickedItem;
 
   const ListBox({super.key, required this.clickedItem});
@@ -434,5 +416,4 @@ class ListBox extends StatelessWidget{
       )
     );
   }
-
 }

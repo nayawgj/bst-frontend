@@ -103,8 +103,7 @@ class _ReviewDetailState extends State<ReviewDetail>{
                   ),
                   TextButton(
                       onPressed: (){
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pop();
+                        //
                       },
                       child: const Text('아니오')
                   )

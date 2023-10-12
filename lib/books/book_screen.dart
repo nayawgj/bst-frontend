@@ -10,7 +10,6 @@ import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
 
 const jwtToken = jwt.jwtToken;
 
-
 class BookScreen extends StatefulWidget {
   const BookScreen({super.key});
 
@@ -29,26 +28,24 @@ class _BookScreenState extends State<BookScreen> {
   }
 
   Future<void> fetchBookImages() async {
+
     final url = Uri.parse('http://10.0.2.2:8080/api/v1/books');
 
-    final response = await http.get(
-        url,
-        headers: {
-          'Authorization':'Bearer $jwtToken'
-        });
-    if(response.statusCode == 200){
+    final response =
+        await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
+    if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final tmpBest10Books = data['data']['best10Books'] as List<dynamic>;
       final tmpRecent10Books = data['data']['recent10Books'] as List<dynamic>;
 
-      final bestBooks = tmpBest10Books.map((book){
+      final bestBooks = tmpBest10Books.map((book) {
         return [
-            book['bookImg'] as String,
-            book['bookId'] as int,
-          ];
+          book['bookImg'] as String,
+          book['bookId'] as int,
+        ];
       }).toList();
 
-      final recentBooks = tmpRecent10Books.map((book){
+      final recentBooks = tmpRecent10Books.map((book) {
         return [
           book['bookImg'] as String,
           book['bookId'] as int,
@@ -59,15 +56,11 @@ class _BookScreenState extends State<BookScreen> {
         best10Books = bestBooks;
         recent10Books = recentBooks;
       });
-
     }
-
   }
-
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       home: Scaffold(
         body: SingleChildScrollView(
@@ -76,7 +69,8 @@ class _BookScreenState extends State<BookScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 19, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 19, vertical: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -173,7 +167,8 @@ class BookList extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DetailBookScreen(bookId: images[index][1]),
+                        builder: (context) =>
+                            DetailBookScreen(bookId: images[index][1]),
                       ),
                     );
                   },
@@ -189,8 +184,7 @@ class BookList extends StatelessWidget {
                       images[index][0],
                       fit: BoxFit.cover,
                     ),
-                  )
-              );
+                  ));
             } else {
               return Container(
                 width: 150.0,

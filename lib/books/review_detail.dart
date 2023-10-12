@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class _ReviewDetailState extends State<ReviewDetail>{
   List<dynamic> commentData = [];
   bool bookmarked = true;
 
+
   @override
   void initState(){
     fetchData(widget.reviewId);
@@ -43,6 +45,12 @@ class _ReviewDetailState extends State<ReviewDetail>{
         commentData = reviewData['reviewComments'];
         bookmarked = reviewData['bookmarked'] as bool;
       });
+
+      bool spoiled = reviewData['reviewSpoiler'] as bool;
+      if(spoiled){
+        if(!mounted) return;
+        showSpoilerAlertDialog(context);
+      }
     }else{
       throw Exception("Failed to load data");
     }
@@ -69,6 +77,43 @@ class _ReviewDetailState extends State<ReviewDetail>{
     }catch(e){
       debugPrint('bookmark review ERROR');
     }
+  }
+
+  void showSpoilerAlertDialog(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return Stack(
+            children: <Widget>[
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                child: Container(
+                    color: Colors.black.withOpacity(0.5)
+                ),
+              ),
+              AlertDialog(
+                title: const Text("스포일러 경고"),
+                content: const Text("스포일러가 포함된 독후감입니다. 그래도 읽으시겠습니까?"),
+                actions: [
+                  TextButton(
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('네')
+                  ),
+                  TextButton(
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('아니오')
+                  )
+                ],
+              ),
+            ],
+          );
+        }
+    );
   }
 
   @override

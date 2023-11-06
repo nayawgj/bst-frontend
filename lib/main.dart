@@ -1,4 +1,4 @@
-import 'package:booksaeteum/books/create_book_report.dart';
+import 'package:booksaeteum/books/detailed_report.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,6 +10,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: CreateReport());
+    return const MaterialApp(home: DetailReport());
   }
 }

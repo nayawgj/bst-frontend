@@ -62,12 +62,14 @@ class _SideBarState extends State<SideBar> {
             Image userImg = Image.asset('assets/profile_user.png',
                 width: 55, height: 55); //디폴트 이미지
             if (user.image != null) {
-              final Image userImg = Image.network(
+              userImg = Image.network(
                 user.image,
-                width: 55,
-                height: 55,
+                width: 50,
+                height: 50,
               ); //유저 이미지 존재할 경우
             }
+
+            print(userImg);
 
             return ListView(
                 padding:
@@ -109,7 +111,7 @@ class _SideBarState extends State<SideBar> {
                           const SizedBox(
                             width: 5,
                           ),
-                          userImg // 유저 프로필사진
+                          SizedBox(child: userImg) // 유저 프로필사진
                         ],
                       )
                     ],

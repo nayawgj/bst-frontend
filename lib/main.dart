@@ -1,4 +1,4 @@
-import 'package:booksaeteum/mydebate/writing_page.dart';
+import 'package:booksaeteum/books/detail_book.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,6 +10,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: DetailedWriting());
+    return const MaterialApp(
+        home: DetailBookScreen(
+      bookId: 12,
+    ));
   }
 }

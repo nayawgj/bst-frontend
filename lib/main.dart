@@ -1,4 +1,4 @@
-import 'package:booksaeteum/screen/mainpage.dart';
+import 'package:booksaeteum/books/review_detail.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,6 +11,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: MainPage());
+    return const MaterialApp(
+        home: ReviewDetail(
+      reviewId: 12,
+    ));
   }
 }

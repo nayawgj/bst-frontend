@@ -80,6 +80,9 @@ flutter:
     - assets/create_report.png
     - assets/login_screen.png
     - assets/image.png
+    - assets/testImage.png
+    - assets/dotted_line.png
+    - assets/pencil.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

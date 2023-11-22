@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'detail_book.dart';
+import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
+
+
+const jwtToken = jwt.jwtToken;
 
 class BookScreen extends StatefulWidget {
   const BookScreen({super.key});
@@ -24,10 +28,8 @@ class _BookScreenState extends State<BookScreen> {
   }
 
   Future<void> fetchBookImages() async {
-    final url = Uri.parse('http://10.0.2.2:8080/api/v1/books'); 
-    final jwtToken =
-        "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IjNkUDNwYWRWRmlmQXY1MkNJWTlDTU1vaDh5eG9iOTdwYWhxSkhUSHM1MDgiLCJpYXQiOjE2OTU1MzQyMjIsImV4cCI6MTY5NTU3MDIyMn0.312jWGVo5OGMxgdfs4i9FPkJzXuscdgEI4xLTJi2AY8";
 
+    final url = Uri.parse('http://10.0.2.2:8080/api/v1/books');
 
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});

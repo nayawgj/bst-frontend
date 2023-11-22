@@ -6,16 +6,16 @@ import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
 
 
 
-class SearchBook extends StatefulWidget {
-  const SearchBook({super.key});
+class ChooseBook extends StatefulWidget {
+  const ChooseBook({super.key});
 
   @override
-  State<SearchBook> createState() => _SearchBookState();
+  State<ChooseBook> createState() => _ChoooseBookState();
 }
 
 const jwtToken = jwt.jwtToken;
 
-class _SearchBookState extends State<SearchBook> {
+class _ChoooseBookState extends State<ChooseBook> {
   TextEditingController searchController = TextEditingController();
 
   List<dynamic> books = [];
@@ -157,18 +157,25 @@ class _SearchBookState extends State<SearchBook> {
                       itemBuilder: (BuildContext context, int index){
                         final book = books[index];
                         return GridTile(
-                            child: Container(
-                              width: 150.0,
-                              height: 220.0,
-                              margin: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(10.0)
-                              ),
-                              child: Image.network(
-                                  book['bookImg'],
-                                  fit: BoxFit.cover
-                              ),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context, book);
+
+                                // Navigator.of(context).pop(book);
+                              },
+                              child: Container(
+                                width: 150.0,
+                                height: 220.0,
+                                margin: const EdgeInsets.all(13.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(10.0)
+                                ),
+                                child: Image.network(
+                                    book['bookImg'],
+                                    fit: BoxFit.cover
+                                ),
+                              )
                             )
                         );
                       }))

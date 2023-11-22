@@ -1,3 +1,5 @@
+import 'package:booksaeteum/books/choose_book.dart';
+import 'package:booksaeteum/books/search_book.dart';
 import 'package:flutter/material.dart';
 
 class CreateReport extends StatefulWidget {
@@ -39,7 +41,9 @@ class _CreateReportState extends State<CreateReport> {
             Container(
               margin: const EdgeInsets.all(8),
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: const Color.fromRGBO(32, 96, 79, 1),
@@ -70,7 +74,16 @@ class _CreateReportState extends State<CreateReport> {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              final selectedBook = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const ChooseBook())
+                              );
+
+                              if(selectedBook != null){
+                                debugPrint("clicked book:$selectedBook");
+                              }
+                            },
                             icon: const Icon(
                               Icons.search,
                               color: Color.fromRGBO(32, 96, 79, 1),

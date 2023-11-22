@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:booksaeteum/books/create_book_report.dart';
 import 'package:booksaeteum/books/review_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
@@ -310,6 +311,17 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
                 }),
           ),
         ]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                    const CreateReport()));
+          },
+          backgroundColor: Colors.green[900],
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

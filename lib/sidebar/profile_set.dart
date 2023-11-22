@@ -32,19 +32,15 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           actions: [
-            ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                  backgroundColor: const Color.fromRGBO(32, 96, 79, 1),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                ),
-                child: const Text(
-                  '저장',
-                  style: TextStyle(color: Colors.white),
-                ))
+            FloatingActionButton.extended(
+              onPressed: () {},
+              label: const Text('저장'),
+              backgroundColor: const Color.fromRGBO(32, 96, 79, 1),
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.white), // 원하는 테두리 색상
+                borderRadius: BorderRadius.circular(18), // 원하는 모서리 반경
+              ),
+            ),
           ],
         ),
         body: Container(

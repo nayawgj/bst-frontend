@@ -135,6 +135,10 @@ class _MyDebateScreenState extends State<MyDebateScreen> {
               },
               label: const Text('  토론방 만들기  '),
               backgroundColor: const Color.fromRGBO(32, 96, 79, 1),
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.white), // 원하는 테두리 색상
+                borderRadius: BorderRadius.circular(18), // 원하는 모서리 반경
+              ),
             ),
           )
         ],

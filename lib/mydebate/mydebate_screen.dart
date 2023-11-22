@@ -1,4 +1,4 @@
-import 'package:booksaeteum/mydebate/outline.dart';
+import 'package:booksaeteum/mydebate/outline_debate.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;

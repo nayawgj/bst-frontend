@@ -25,7 +25,7 @@ class _MyDebateScreenState extends State<MyDebateScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const Outline_Debate()));
+                          builder: (context) => const OutlineDebate()));
                 },
                 child: Container(
                   height: 90,

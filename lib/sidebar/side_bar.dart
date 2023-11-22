@@ -139,19 +139,10 @@ class _SideBarState extends State<SideBar> {
                   const SizedBox(
                     height: 50,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const Settings()));
-                        },
-                        icon: const Icon(Icons.arrow_back_ios),
-                        iconSize: 20,
-                        color: const Color.fromRGBO(32, 96, 79, 1),
-                      ),
-                      const Row(
+                      Row(
                         children: [
                           Text(
                             '설정 ',

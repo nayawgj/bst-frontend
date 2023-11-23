@@ -10,12 +10,12 @@ class ChooseBook extends StatefulWidget {
   const ChooseBook({super.key});
 
   @override
-  State<ChooseBook> createState() => _ChoooseBookState();
+  State<ChooseBook> createState() => _ChooseBookState();
 }
 
 const jwtToken = jwt.jwtToken;
 
-class _ChoooseBookState extends State<ChooseBook> {
+class _ChooseBookState extends State<ChooseBook> {
   TextEditingController searchController = TextEditingController();
 
   List<dynamic> books = [];
@@ -33,8 +33,6 @@ class _ChoooseBookState extends State<ChooseBook> {
         headers: {
           'Authorization':'Bearer $jwtToken'
         });
-
-    debugPrint("clicked");
 
     if(response.statusCode == 200){
       final data = jsonDecode(utf8.decode(response.bodyBytes));
@@ -124,8 +122,6 @@ class _ChoooseBookState extends State<ChooseBook> {
                                   fillColor: Colors.white,
                                   suffixIcon: IconButton(
                                       onPressed: () async {
-                                        debugPrint("CLIKCED");
-
                                         await fetchData(searchController.text);
                                       }, //searchController.clear,
                                       icon: Image.asset('assets/search.png')),
@@ -154,14 +150,15 @@ class _ChoooseBookState extends State<ChooseBook> {
                           crossAxisSpacing: 10.0
                       ),
                       itemCount: books.length,
-                      itemBuilder: (BuildContext context, int index){
+                      itemBuilder: (BuildContext context2, int index){
                         final book = books[index];
                         return GridTile(
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.pop(context, book);
-
                                 // Navigator.of(context).pop(book);
+                                // debugPrint('$book');
+                                // Navigator.pop(context, "book");
+                                Navigator.of(context).pop(book);
                               },
                               child: Container(
                                 width: 150.0,

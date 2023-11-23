@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:booksaeteum/books/comment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -19,6 +20,8 @@ class ReviewDetail extends StatefulWidget{
 }
 
 class _ReviewDetailState extends State<ReviewDetail>{
+  final TextEditingController _commentController = TextEditingController();
+
   Map<String, dynamic> reviewData = {};
   List<dynamic> commentData = [];
   bool bookmarked = true;
@@ -55,6 +58,49 @@ class _ReviewDetailState extends State<ReviewDetail>{
       throw Exception("Failed to load data");
     }
   }
+
+  Future<void> loadComments() async {
+    final reviewId = widget.reviewId;
+    final url = Uri.parse('http://10.0.2.2:8080/api/v1/review/$reviewId/comment');
+
+    final response = await http.get(
+        url,
+        headers: {
+          'Authorization':'Bearer $jwtToken'
+        });
+
+    if(response.statusCode == 200){
+      final data = jsonDecode(utf8.decode(response.bodyBytes));
+      setState(() {
+        commentData = data['data'];
+      });
+    }else{
+      throw Exception("Failed to load comments");
+    }
+  }
+
+  Future<void> postComment() async {
+    final reviewId = widget.reviewId;
+    final newComment = Comment(comment: _commentController.text);
+    debugPrint("comment:${newComment.comment}");
+    final url = Uri.parse("http://10.0.2.2:8080/api/v1/review/$reviewId/comment");
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Authorization': 'Bearer $jwtToken',
+        'Content-Type': 'application/json'
+      },
+      body: json.encode({'comment': newComment.comment})
+    );
+    if(response.statusCode == 200){
+      debugPrint("post Comment Succeed");
+      _commentController.clear();
+    }else{
+      debugPrint("post Comment Failed");
+    }
+  }
+
 
   void toggleBookmark() async {
     final reviewId = widget.reviewId;
@@ -277,6 +323,26 @@ class _ReviewDetailState extends State<ReviewDetail>{
                     ],
                   );
                 }),
+              ),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: TextField(
+                            controller: _commentController,
+                            decoration: const InputDecoration(labelText: "Write a comment..."),
+                          )
+                      ),
+                      ElevatedButton(
+                          onPressed: () async {
+                            await postComment();
+                            await loadComments();
+                          },
+                          child: const Text('Post')
+                      )
+                    ],
+                  ),
               )
 
             ],

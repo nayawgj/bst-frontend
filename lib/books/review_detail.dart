@@ -128,7 +128,7 @@ class _ReviewDetailState extends State<ReviewDetail>{
   void showSpoilerAlertDialog(BuildContext context){
     showDialog(
         context: context,
-        builder: (BuildContext context){
+        builder: (BuildContext context2){
           return Stack(
             children: <Widget>[
               BackdropFilter(
@@ -143,13 +143,14 @@ class _ReviewDetailState extends State<ReviewDetail>{
                 actions: [
                   TextButton(
                       onPressed: (){
-                        Navigator.of(context).pop();
+                        Navigator.of(context2).pop();
                       },
                       child: const Text('네')
                   ),
                   TextButton(
                       onPressed: (){
-                        //
+                        Navigator.of(context).pop();
+                        Navigator.of(context2).pop();
                       },
                       child: const Text('아니오')
                   )

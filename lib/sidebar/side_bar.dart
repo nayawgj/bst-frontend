@@ -1,5 +1,4 @@
 import 'package:booksaeteum/sidebar/profile_set.dart';
-import 'package:booksaeteum/sidebar/setting.dart';
 import 'package:flutter/material.dart';
 
 import 'alert_set.dart';

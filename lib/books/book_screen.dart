@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'detail_book.dart';
 import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
 
-
 const jwtToken = jwt.jwtToken;
 
 class BookScreen extends StatefulWidget {

@@ -16,6 +16,7 @@ class _AlertState extends State<Alert> {
           elevation: 0.0,
           backgroundColor: Colors.white,
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
                 icon: const Icon(
@@ -26,18 +27,59 @@ class _AlertState extends State<Alert> {
                   Navigator.of(context).pop();
                 },
               ),
-              const SizedBox(
-                width: 100,
+              const Text(
+                '알림',
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),
-              const Row(
+              //Icon(Icons.bookmark, color: Color.fromRGBO(32, 96, 79, 1)),
+              FloatingActionButton.extended(
+                onPressed: () {},
+                label: const Text('저장'),
+                backgroundColor: const Color.fromRGBO(32, 96, 79, 1),
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(color: Colors.white), // 원하는 테두리 색상
+                  borderRadius: BorderRadius.circular(18), // 원하는 모서리 반경
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: Container(
+          color: Colors.white,
+          child: const Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    '알림',
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
+                  SizedBox(
+                    width: 350,
+                    child: Divider(
+                      color: Colors.black12,
+                      thickness: 1.0,
+                    ),
                   ),
-                  //Icon(Icons.bookmark, color: Color.fromRGBO(32, 96, 79, 1)),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text('내 독후감에 달린 댓글 알림'),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text('내 토론글 인용 알림'),
+                    ],
+                  ),
                 ],
               )
             ],

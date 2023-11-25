@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Outline_Debate extends StatefulWidget {
-  const Outline_Debate({super.key});
+class OutlineDebate extends StatefulWidget {
+  const OutlineDebate({super.key});
 
   @override
-  State<Outline_Debate> createState() => _Outline_DebateState();
+  State<OutlineDebate> createState() => _OutlineDebateState();
 }
 
-class _Outline_DebateState extends State<Outline_Debate> {
+class _OutlineDebateState extends State<OutlineDebate> {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
@@ -258,11 +258,11 @@ class _Outline_DebateState extends State<Outline_Debate> {
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
@@ -272,46 +272,44 @@ class _Outline_DebateState extends State<Outline_Debate> {
                           )
                         ],
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 10,
                       ),
                       Row(
                         children: [
-                          const Text(
+                          Text(
                             '비밀번호',
                             style: TextStyle(color: Colors.black54),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             width: 10,
                           ),
-                          Container(
-                            width: 150,
-                            height: 15,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              border: Border.all(
-                                color: Colors.black54,
-                                width: 1.0,
+                          Expanded(
+                            // Added this Expanded widget
+                            child: SizedBox(
+                              width: 50,
+                              height: 25,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 5.0, horizontal: 10.0),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.black54,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(
                   height: 20,
-                ),
-                FloatingActionButton.extended(
-                  onPressed: () {
-                    /*Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const EndterDebate()),
-                );*/
-                  },
-                  label: const Text('  토론방 만들기  '),
-                  backgroundColor: const Color.fromRGBO(32, 96, 79, 1),
                 ),
               ],
             ),

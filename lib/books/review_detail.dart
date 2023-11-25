@@ -76,7 +76,11 @@ class _ReviewDetailState extends State<ReviewDetail> {
   void showSpoilerAlertDialog(BuildContext context) {
     showDialog(
         context: context,
+<<<<<<<<< Temporary merge branch 1
+        builder: (BuildContext context2){
+=========
         builder: (BuildContext context) {
+>>>>>>>>> Temporary merge branch 2
           return Stack(
             children: <Widget>[
               BackdropFilter(
@@ -88,13 +92,24 @@ class _ReviewDetailState extends State<ReviewDetail> {
                 content: const Text("스포일러가 포함된 독후감입니다. 그래도 읽으시겠습니까?"),
                 actions: [
                   TextButton(
+<<<<<<<<< Temporary merge branch 1
+                      onPressed: (){
+                        Navigator.of(context2).pop();
+=========
                       onPressed: () {
                         Navigator.of(context).pop();
+>>>>>>>>> Temporary merge branch 2
                       },
                       child: const Text('네')),
                   TextButton(
+<<<<<<<<< Temporary merge branch 1
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                        Navigator.of(context2).pop();
+=========
                       onPressed: () {
                         //
+>>>>>>>>> Temporary merge branch 2
                       },
                       child: const Text('아니오'))
                 ],

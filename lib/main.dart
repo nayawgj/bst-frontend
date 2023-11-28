@@ -1,7 +1,5 @@
-import 'package:booksaeteum/screen/login.dart';
-import 'package:booksaeteum/screen/mainpage.dart';
+import 'package:booksaeteum/mydebate/debate_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_auth/flutter_web_auth.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +11,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: MainPage());
+    return const MaterialApp(home: DetailedWriting());
   }
 }

@@ -1,3 +1,4 @@
+import 'package:booksaeteum/mydebate/in_debate.dart';
 import 'package:flutter/material.dart';
 
 class OutlineDebate extends StatefulWidget {
@@ -311,6 +312,27 @@ class _OutlineDebateState extends State<OutlineDebate> {
                 const SizedBox(
                   height: 20,
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Center(
+                    child: FloatingActionButton.extended(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const InDebate()),
+                        );
+                      },
+                      label: const Text('  토론 참여하기  '),
+                      backgroundColor: const Color.fromRGBO(32, 96, 79, 1),
+                      shape: RoundedRectangleBorder(
+                        side:
+                            const BorderSide(color: Colors.white), // 원하는 테두리 색상
+                        borderRadius: BorderRadius.circular(18), // 원하는 모서리 반경
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           )),

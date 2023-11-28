@@ -377,14 +377,9 @@ class ListBox extends StatelessWidget {
 
     return GestureDetector(
       onTap: (){
-        if(clickedIsReview) {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context)=> ReviewDetail(reviewId: clickedId))
-          );
-        }else {
-          // 토론방 리스트로 전환
-        }
-
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context)=> ReviewDetail(reviewId: clickedId))
+        );
       },
       child: Container(
         height: 90,

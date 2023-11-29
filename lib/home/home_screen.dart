@@ -64,6 +64,14 @@ class _HomeScreenState extends State<HomeScreen> {
     throw Error();
   }
 
+  String getTypeText(int type) {
+    if (type == 0) {
+      return '자유';
+    } else {
+      return '찬반';
+    }
+  }
+
   // new window
   @override
   Widget build(BuildContext context) {
@@ -141,20 +149,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   height: 120,
                                   autoPlay: true,
                                   viewportFraction: 1),
-                              items: [1, 2, 3, 4, 5].map((i) {
+                              items: [1, 2, 3].map((i) {
                                 return Builder(
                                   builder: (BuildContext context) {
                                     return Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 17),
-                                      decoration: const BoxDecoration(
-                                          color: Colors.white),
-                                      child: Text(
-                                        'text $i',
-                                        style: const TextStyle(fontSize: 16),
-                                      ),
-                                    );
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 17),
+                                        decoration: const BoxDecoration(
+                                            color: Colors.white),
+                                        child: Image.asset(
+                                          'assets/banner_$i.jpg',
+                                          fit: BoxFit.cover,
+                                        ));
                                   },
                                 );
                               }).toList(),
@@ -299,24 +307,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         ),
                                                         SizedBox(height: 10),
                                                         Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left:
-                                                                  15.0), // 왼쪽 패딩 추가
-                                                          child: Text(
-                                                            '#자유 #해외문학',
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 14,
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              height: 0.11,
-                                                            ),
-                                                          ),
-                                                        ),
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left:
+                                                                        15.0), // 왼쪽 패딩 추가
+                                                            child: Text(
+                                                              '#${getTypeText(bestDebates[i].type)} #${bestDebates[i].category}',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 14,
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                height: 0.11,
+                                                              ),
+                                                            )),
                                                       ],
                                                     );
                                                   }
@@ -460,7 +468,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               left:
                                                                   15.0), // 왼쪽 패딩 추가
                                                           child: Text(
-                                                            '#자유 #해외문학',
+                                                            '#${getTypeText(recentDebates[i].type)} #${recentDebates[i].category}',
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,

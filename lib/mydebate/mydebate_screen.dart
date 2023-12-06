@@ -1,13 +1,13 @@
-import 'package:booksaeteum/mydebate/outline_debate.dart';
+import 'package:booksaeteum/mydebate/debate_feed.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
 
 import 'create_debate.dart';
 
-final jwtToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IkdNQklxTW43NkpEQXUxQmMxRzVSdXd5M1lTTHdfSGhkNm9kaFl6QUJfWTgiLCJpYXQiOjE3MDA2NTc2ODQsImV4cCI6MTcwMDY2MTI4NH0.iYL_jXGsGKOtMLroQ_5Yv2Ppq0HIw0Yr7v8M23wTQX4";
+const jwtToken = jwt.jwtToken;
 
 class MyDebateScreen extends StatefulWidget {
   const MyDebateScreen({super.key});
@@ -78,7 +78,17 @@ class _MyDebateScreenState extends State<MyDebateScreen> {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: GestureDetector(
                       onTap: () {
-                        // 클릭 시 수행할 작업 추가
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DebateFeedScreen(
+                              debateId: debate['debateId'],
+                              debateTopic: debate['debateTopic'],
+                              bookTitle: debate['bookTitle'],
+                              bookAuthor: debate['bookAuthor'],
+                            ),
+                          ),
+                        );
                       },
                       child: ListBox(
                         debate: debate,

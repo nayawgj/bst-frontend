@@ -6,16 +6,16 @@ import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
 
 
 
-class SearchBook extends StatefulWidget {
-  const SearchBook({super.key});
+class ChooseBook extends StatefulWidget {
+  const ChooseBook({super.key});
 
   @override
-  State<SearchBook> createState() => _SearchBookState();
+  State<ChooseBook> createState() => _ChooseBookState();
 }
 
 const jwtToken = jwt.jwtToken;
 
-class _SearchBookState extends State<SearchBook> {
+class _ChooseBookState extends State<ChooseBook> {
   TextEditingController searchController = TextEditingController();
 
   List<dynamic> books = [];
@@ -33,8 +33,6 @@ class _SearchBookState extends State<SearchBook> {
         headers: {
           'Authorization':'Bearer $jwtToken'
         });
-
-    debugPrint("clicked");
 
     if(response.statusCode == 200){
       final data = jsonDecode(utf8.decode(response.bodyBytes));
@@ -124,8 +122,6 @@ class _SearchBookState extends State<SearchBook> {
                                   fillColor: Colors.white,
                                   suffixIcon: IconButton(
                                       onPressed: () async {
-                                        debugPrint("CLIKCED");
-
                                         await fetchData(searchController.text);
                                       }, //searchController.clear,
                                       icon: Image.asset('assets/search.png')),
@@ -154,21 +150,29 @@ class _SearchBookState extends State<SearchBook> {
                           crossAxisSpacing: 10.0
                       ),
                       itemCount: books.length,
-                      itemBuilder: (BuildContext context, int index){
+                      itemBuilder: (BuildContext context2, int index){
                         final book = books[index];
                         return GridTile(
-                            child: Container(
-                              width: 150.0,
-                              height: 220.0,
-                              margin: const EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(10.0)
-                              ),
-                              child: Image.network(
-                                  book['bookImg'],
-                                  fit: BoxFit.cover
-                              ),
+                            child: GestureDetector(
+                              onTap: () {
+                                // Navigator.of(context).pop(book);
+                                // debugPrint('$book');
+                                // Navigator.pop(context, "book");
+                                Navigator.of(context).pop(book);
+                              },
+                              child: Container(
+                                width: 150.0,
+                                height: 220.0,
+                                margin: const EdgeInsets.all(13.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(10.0)
+                                ),
+                                child: Image.network(
+                                    book['bookImg'],
+                                    fit: BoxFit.cover
+                                ),
+                              )
                             )
                         );
                       }))

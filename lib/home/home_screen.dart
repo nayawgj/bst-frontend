@@ -8,7 +8,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
+<<<<<<< HEAD
 import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
+=======
+
+import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
+
+const jwtToken = jwt.jwtToken;
+>>>>>>> 8a0e90146995359b76d9bcda1d636071262afe98
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,7 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<List<DebateModel>> getBestDebates() async {
     List<DebateModel> debateInstances = [];
     final url = Uri.parse('http://10.0.2.2:8080/main/best');
+<<<<<<< HEAD
     final jwtToken = jwt.jwtToken;
+=======
+>>>>>>> 8a0e90146995359b76d9bcda1d636071262afe98
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
     if (response.statusCode == 200) {
@@ -50,7 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<List<DebateModel>> getRecentDebates() async {
     List<DebateModel> debateInstances = [];
     final url = Uri.parse('http://10.0.2.2:8080/main/new');
+<<<<<<< HEAD
     final jwtToken = jwt.jwtToken;
+=======
+>>>>>>> 8a0e90146995359b76d9bcda1d636071262afe98
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
     if (response.statusCode == 200) {
@@ -61,6 +74,14 @@ class _HomeScreenState extends State<HomeScreen> {
       return debateInstances;
     }
     throw Error();
+  }
+
+  String getTypeText(int type) {
+    if (type == 0) {
+      return '자유';
+    } else {
+      return '찬반';
+    }
   }
 
   // new window
@@ -140,20 +161,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   height: 120,
                                   autoPlay: true,
                                   viewportFraction: 1),
-                              items: [1, 2, 3, 4, 5].map((i) {
+                              items: [1, 2, 3].map((i) {
                                 return Builder(
                                   builder: (BuildContext context) {
                                     return Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 17),
-                                      decoration: const BoxDecoration(
-                                          color: Colors.white),
-                                      child: Text(
-                                        'text $i',
-                                        style: const TextStyle(fontSize: 16),
-                                      ),
-                                    );
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 17),
+                                        decoration: const BoxDecoration(
+                                            color: Colors.white),
+                                        child: Image.asset(
+                                          'assets/banner_$i.jpg',
+                                          fit: BoxFit.cover,
+                                        ));
                                   },
                                 );
                               }).toList(),
@@ -298,24 +319,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         ),
                                                         SizedBox(height: 10),
                                                         Padding(
-                                                          padding: EdgeInsets.only(
-                                                              left:
-                                                                  15.0), // 왼쪽 패딩 추가
-                                                          child: Text(
-                                                            '#자유 #해외문학',
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: 14,
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              height: 0.11,
-                                                            ),
-                                                          ),
-                                                        ),
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    left:
+                                                                        15.0), // 왼쪽 패딩 추가
+                                                            child: Text(
+                                                              '#${getTypeText(bestDebates[i].type)} #${bestDebates[i].category}',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 14,
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                height: 0.11,
+                                                              ),
+                                                            )),
                                                       ],
                                                     );
                                                   }
@@ -459,7 +480,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               left:
                                                                   15.0), // 왼쪽 패딩 추가
                                                           child: Text(
-                                                            '#자유 #해외문학',
+                                                            '#${getTypeText(recentDebates[i].type)} #${recentDebates[i].category}',
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,

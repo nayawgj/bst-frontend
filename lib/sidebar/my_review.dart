@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+
+import '../mydebate/outline_debate.dart';
 
 class MyReview extends StatefulWidget {
   const MyReview({super.key});
@@ -45,52 +48,123 @@ class _MyReviewState extends State<MyReview> {
             ],
           ),
         ),
-        body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          children: [
-            /*Row(
+        body: Container(
+          color: Colors.white,
+          child: Stack(
+            children: [
+              ListView(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      color: Color.fromRGBO(32, 96, 79, 1),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OutlineDebate()));
                     },
+                    child: Container(
+                      height: 90,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: const GradientBoxBorder(
+                              gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromRGBO(32, 96, 79, 1),
+                                    Color.fromRGBO(245, 245, 245, 1)
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter),
+                              width: 2.5),
+                          borderRadius: BorderRadius.circular(5),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: const Offset(0, 3),
+                              blurRadius: 3,
+                              color: Colors.black.withOpacity(0.3),
+                              //spreadRadius: 5
+                            ),
+                          ]),
+                      child: const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text('책 제목'),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text('저자')
+                              ],
+                            ),
+                            Text(
+                              '토론 주제',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text('#토론 방식')
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(
-                    width: 110,
+                    height: 10,
                   ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text('내 리뷰'), Icon(Icons.edit)],
-                  )*/
-
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              height: 90,
-              width: 100,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  width: 1,
-                  color: const Color.fromRGBO(32, 96, 79, 1),
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('    책 제목'),
-                  Text('    독후감 제목'),
+                  Container(
+                    height: 90,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: const GradientBoxBorder(
+                            gradient: LinearGradient(
+                                colors: [
+                                  Color.fromRGBO(32, 96, 79, 1),
+                                  Color.fromRGBO(245, 245, 245, 1)
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter),
+                            width: 2.5),
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: const Offset(0, 3),
+                            blurRadius: 3,
+                            color: Colors.black.withOpacity(0.3),
+                            //spreadRadius: 5
+                          ),
+                        ]),
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text('책 제목'),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text('저자')
+                            ],
+                          ),
+                          Text(
+                            '토론 주제',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text('#토론 방식')
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

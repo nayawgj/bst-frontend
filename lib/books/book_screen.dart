@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -115,6 +114,7 @@ class _BookScreenState extends State<BookScreen> {
                       // Best Seller
                       const SectionTitle(text: '베스트 셀러'),
                       BookList(images: best10Books), // Extracted Book List
+                      // ?? bookid request
                       // New Books
                       const SectionTitle(text: '신간 도서'),
                       BookList(images: recent10Books), // Extracted Book List

@@ -8,14 +8,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
-<<<<<<< HEAD
-import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
-=======
-
 import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
 
 const jwtToken = jwt.jwtToken;
->>>>>>> 8a0e90146995359b76d9bcda1d636071262afe98
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -41,10 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<List<DebateModel>> getBestDebates() async {
     List<DebateModel> debateInstances = [];
     final url = Uri.parse('http://10.0.2.2:8080/main/best');
-<<<<<<< HEAD
-    final jwtToken = jwt.jwtToken;
-=======
->>>>>>> 8a0e90146995359b76d9bcda1d636071262afe98
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
     if (response.statusCode == 200) {
@@ -60,10 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<List<DebateModel>> getRecentDebates() async {
     List<DebateModel> debateInstances = [];
     final url = Uri.parse('http://10.0.2.2:8080/main/new');
-<<<<<<< HEAD
-    final jwtToken = jwt.jwtToken;
-=======
->>>>>>> 8a0e90146995359b76d9bcda1d636071262afe98
     final response =
         await http.get(url, headers: {'Authorization': 'Bearer $jwtToken'});
     if (response.statusCode == 200) {

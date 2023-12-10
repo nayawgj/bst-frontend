@@ -66,12 +66,16 @@ class _ProfileState extends State<Profile> {
                 height: 10,
               ),
               // nickname
-              const SizedBox(
+              SizedBox(
                 width: 300,
                 child: TextField(
                   decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black45))),
+                    enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black45)),
+                    suffixIcon: IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.edit)),
+                    hintText: '책 읽는 뿡이',
+                  ),
                 ),
               ),
               const SizedBox(

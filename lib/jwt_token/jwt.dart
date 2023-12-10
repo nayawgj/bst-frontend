@@ -1,2 +1,1 @@
-const String jwtToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IkdNQklxTW43NkpEQXUxQmMxRzVSdXd5M1lTTHdfSGhkNm9kaFl6QUJfWTgiLCJpYXQiOjE3MDE5MjYyNzcsImV4cCI6MTcwMTkyOTg3N30.UFXHj-m-L5b4qoclS5i5Tx97k0Er9ZxHmT-Tu_lfdeg";
+const String jwtToken = "";

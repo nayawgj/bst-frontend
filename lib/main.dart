@@ -1,4 +1,3 @@
-import 'package:booksaeteum/mydebate/writing_debate.dart';
 import 'package:booksaeteum/screen/mainpage.dart';
 import 'package:flutter/material.dart';
 

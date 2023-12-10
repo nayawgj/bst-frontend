@@ -84,7 +84,10 @@ flutter:
     - assets/testImage.png
     - assets/dotted_line.png
     - assets/pencil.png
-    
+    - assets/banner_1.jpg
+    - assets/banner_2.jpg
+    - assets/banner_3.jpg
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

@@ -8,7 +8,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
 
 const jwtToken = jwt.jwtToken;

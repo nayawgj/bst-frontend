@@ -180,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 19),
                       child: Column(
-                        // 인기 토론방
+                        // 방
                         children: [
                           Column(
                             children: [

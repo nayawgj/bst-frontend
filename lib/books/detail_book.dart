@@ -453,7 +453,11 @@ class ListBox extends StatelessWidget {
                   Text(clickedRightUpper ?? 'Loading...')
                 ],
               ),
-              Text(clickedLeftMid ?? 'Loading...')
+              Text(
+                  clickedLeftMid ?? 'Loading...',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+              )
             ],
           ),
         ),

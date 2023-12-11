@@ -264,13 +264,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               .center,
                                                       children: [
                                                         Padding(
-                                                          padding: EdgeInsets.only(
+                                                          padding: const EdgeInsets
+                                                                  .only(
                                                               left:
                                                                   15.0), // 왼쪽 패딩 추가
                                                           child: Text(
                                                             bestDebates[i]
                                                                 .title,
-                                                            style: TextStyle(
+                                                            style:
+                                                                const TextStyle(
                                                               color:
                                                                   Colors.black,
                                                               fontSize: 14,
@@ -283,15 +285,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             ),
                                                           ),
                                                         ),
-                                                        SizedBox(height: 9),
+                                                        const SizedBox(
+                                                            height: 9),
                                                         Padding(
-                                                          padding: EdgeInsets.only(
+                                                          padding: const EdgeInsets
+                                                                  .only(
                                                               left:
                                                                   15.0), // 왼쪽 패딩 추가
                                                           child: Text(
                                                             bestDebates[i]
                                                                 .topic,
-                                                            style: TextStyle(
+                                                            style:
+                                                                const TextStyle(
                                                               color:
                                                                   Colors.black,
                                                               fontSize: 17,
@@ -304,15 +309,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             ),
                                                           ),
                                                         ),
-                                                        SizedBox(height: 10),
+                                                        const SizedBox(
+                                                            height: 10),
                                                         Padding(
                                                             padding:
-                                                                EdgeInsets.only(
+                                                                const EdgeInsets
+                                                                        .only(
                                                                     left:
                                                                         15.0), // 왼쪽 패딩 추가
                                                             child: Text(
                                                               '#${getTypeText(bestDebates[i].type)} #${bestDebates[i].category}',
-                                                              style: TextStyle(
+                                                              style:
+                                                                  const TextStyle(
                                                                 color: Colors
                                                                     .black,
                                                                 fontSize: 14,
@@ -327,7 +335,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       ],
                                                     );
                                                   }
-                                                  return Center(
+                                                  return const Center(
                                                     child:
                                                         CircularProgressIndicator(),
                                                   );
@@ -421,13 +429,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               .center,
                                                       children: [
                                                         Padding(
-                                                          padding: EdgeInsets.only(
+                                                          padding: const EdgeInsets
+                                                                  .only(
                                                               left:
                                                                   15.0), // 왼쪽 패딩 추가
                                                           child: Text(
                                                             recentDebates[i]
                                                                 .title,
-                                                            style: TextStyle(
+                                                            style:
+                                                                const TextStyle(
                                                               color:
                                                                   Colors.black,
                                                               fontSize: 14,
@@ -440,15 +450,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             ),
                                                           ),
                                                         ),
-                                                        SizedBox(height: 9),
+                                                        const SizedBox(
+                                                            height: 9),
                                                         Padding(
-                                                          padding: EdgeInsets.only(
+                                                          padding: const EdgeInsets
+                                                                  .only(
                                                               left:
                                                                   15.0), // 왼쪽 패딩 추가
                                                           child: Text(
                                                             recentDebates[i]
                                                                 .topic,
-                                                            style: TextStyle(
+                                                            style:
+                                                                const TextStyle(
                                                               color:
                                                                   Colors.black,
                                                               fontSize: 17,
@@ -461,14 +474,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             ),
                                                           ),
                                                         ),
-                                                        SizedBox(height: 10),
+                                                        const SizedBox(
+                                                            height: 10),
                                                         Padding(
-                                                          padding: EdgeInsets.only(
+                                                          padding: const EdgeInsets
+                                                                  .only(
                                                               left:
                                                                   15.0), // 왼쪽 패딩 추가
                                                           child: Text(
                                                             '#${getTypeText(recentDebates[i].type)} #${recentDebates[i].category}',
-                                                            style: TextStyle(
+                                                            style:
+                                                                const TextStyle(
                                                               color:
                                                                   Colors.black,
                                                               fontSize: 14,
@@ -484,7 +500,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       ],
                                                     );
                                                   }
-                                                  return Center(
+                                                  return const Center(
                                                     child:
                                                         CircularProgressIndicator(),
                                                   );
@@ -568,6 +584,7 @@ class MyCategory extends StatelessWidget {
       color: const Color.fromRGBO(217, 217, 217, 1),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       onPressed: () {},
+      minWidth: 50,
       child: Text(text),
     );
   }

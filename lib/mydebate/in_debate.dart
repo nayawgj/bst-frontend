@@ -141,11 +141,63 @@ class _InDebateState extends State<InDebate> {
                       ),
                       // post content
                       const Text(
-                          '변신은 바로 그의 억압된 소망들을 표현한다. 그는 자신을 멋대로 다루는 고용주와 아버지에게 반항하며 그의 반항은 무의식 속에서 공포의 형상을 만들어낸다. 퇴행을 통해 그레고르는 노예 상태에서 벗어나고 식객의 역할이 바뀐다. 그러나 가족들은 그를 제거해야할 기생충으로 여기며 누이동생이 내린 결정에 의하여 그레고르는 최후를 맞는다. 그레고르의 불행한 실존에 대해 가족이 책임이 없는 것은 아니다. 비인간적인 공포의 형상 속에서 가족 자체의 비인간성이 드러난다. ')
+                          '변신은 바로 그의 억압된 소망들을 표현한다. 그는 자신을 멋대로 다루는 고용주와 아버지에게 반항하며 그의 반항은 무의식 속에서 공포의 형상을 만들어낸다. 퇴행을 통해 그레고르는 노예 상태에서 벗어나고 식객의 역할이 바뀐다. 그러나 가족들은 그를 제거해야할 기생충으로 여기며 누이동생이 내린 결정에 의하여 그레고르는 최후를 맞는다. 그레고르의 불행한 실존에 대해 가족이 책임이 없는 것은 아니다. 비인간적인 공포의 형상 속에서 가족 자체의 비인간성이 드러난다. '),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.thumb_up_alt_outlined,
+                                    color: Colors.red.withOpacity(0.8),
+                                    size: 20,
+                                  )),
+                              const Text('5'),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.thumb_down_alt_outlined,
+                                    color: Colors.black54,
+                                    size: 20,
+                                  )),
+                              const Text('2')
+                            ],
+                          ),
+                          // 신고 버튼
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.chat_bubble_outline_rounded,
+                                    color: Colors.black54,
+                                  )),
+                              const Text(
+                                '신고',
+                                style: TextStyle(color: Colors.black54),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
-              )
+              ),
+              SizedBox(
+                width: screenSize.width,
+                child: const Divider(
+                  color: Colors.black45,
+                  thickness: 1.0,
+                ),
+              ),
             ],
           ),
         ),

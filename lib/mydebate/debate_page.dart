@@ -166,7 +166,7 @@ class _DetailedWritingState extends State<DetailedWriting> {
                           SizedBox(
                             width: 3,
                           ),
-                          Text('(3)')
+                          Text('(1)')
                         ],
                       ),
                       const SizedBox(

@@ -4,6 +4,7 @@ import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'debate_feed.dart';
 import 'create_debate.dart';
 import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
 
@@ -79,6 +80,17 @@ class _MyDebateScreenState extends State<MyDebateScreen> {
                     child: GestureDetector(
                       onTap: () {
                         // 클릭 시 수행할 작업 추가
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DebateFeedScreen(
+                              debateId: debate['debateId'],
+                              debateTopic: debate['debateTopic'],
+                              bookTitle: debate['bookTitle'],
+                              bookAuthor: debate['bookAuthor'],
+                            ),
+                          ),
+                        );
                       },
                       child: ListBox(
                         debate: debate,

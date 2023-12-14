@@ -97,7 +97,7 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
                             children: [
                               Text(
                                 widget.debateTopic,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 20),
                               ),
                               IconButton(
@@ -109,7 +109,7 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
                           Row(
                             children: [
                               Text(widget.bookTitle),
-                              SizedBox(width: 5),
+                              const SizedBox(width: 5),
                               Text(widget.bookAuthor),
                             ],
                           )
@@ -176,9 +176,9 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
 }
 
 class ListBox extends StatelessWidget {
-  final Map<String, dynamic> post;
+  late Map<String, dynamic> post;
 
-  const ListBox({super.key, required this.post});
+  ListBox({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +195,7 @@ class ListBox extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DetailedWriting()));
+            MaterialPageRoute(builder: (context) => const DetailedWriting()));
       },
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -212,29 +212,29 @@ class ListBox extends StatelessWidget {
                   const SizedBox(width: 10),
                   Text(
                     formattedDate,
-                    style: TextStyle(
-                        color: const Color.fromARGB(115, 151, 140, 140)),
+                    style: const TextStyle(
+                        color: Color.fromARGB(115, 151, 140, 140)),
                   )
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(content),
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.thumb_up_outlined, size: 20),
+                    icon: const Icon(Icons.thumb_up_outlined, size: 20),
                     onPressed: () {},
                   ),
                   Text(like.toString()),
                   const SizedBox(width: 10),
                   IconButton(
-                    icon: Icon(Icons.thumb_down_outlined, size: 20),
+                    icon: const Icon(Icons.thumb_down_outlined, size: 20),
                     onPressed: () {},
                   ),
                   Text(dislike.toString()),
                 ],
               ),
-              Divider(),
+              const Divider(),
             ],
           )),
     );

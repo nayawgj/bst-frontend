@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:booksaeteum/mydebate/writing_debate.dart';
+import 'package:booksaeteum/mydebate/debate_page.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -195,7 +195,7 @@ class ListBox extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const WriteDebate()));
+            MaterialPageRoute(builder: (context) => DetailedWriting()));
       },
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),

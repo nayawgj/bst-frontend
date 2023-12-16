@@ -128,7 +128,7 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                  children: [          
                     const Row(
                       children: [Text('100'), Text('개의 글')],
                     ),
@@ -197,7 +197,7 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
 }
 
 class ListBox extends StatelessWidget {
-  final Map<String, dynamic> post;
+  late Map<String, dynamic> post;
 
   ListBox({super.key, required this.post});
 
@@ -216,7 +216,7 @@ class ListBox extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DetailedWriting()));
+            MaterialPageRoute(builder: (context) => const DetailedWriting()));
       },
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -233,29 +233,29 @@ class ListBox extends StatelessWidget {
                   const SizedBox(width: 10),
                   Text(
                     formattedDate,
-                    style: TextStyle(
-                        color: const Color.fromARGB(115, 151, 140, 140)),
+                    style: const TextStyle(
+                        color: Color.fromARGB(115, 151, 140, 140)),
                   )
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(content),
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.thumb_up_outlined, size: 20),
+                    icon: const Icon(Icons.thumb_up_outlined, size: 20),
                     onPressed: () {},
                   ),
                   Text(like.toString()),
                   const SizedBox(width: 10),
                   IconButton(
-                    icon: Icon(Icons.thumb_down_outlined, size: 20),
+                    icon: const Icon(Icons.thumb_down_outlined, size: 20),
                     onPressed: () {},
                   ),
                   Text(dislike.toString()),
                 ],
               ),
-              Divider(),
+              const Divider(),
             ],
           )),
     );

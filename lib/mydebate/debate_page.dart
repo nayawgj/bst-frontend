@@ -180,6 +180,7 @@ class _DetailedWritingState extends State<DetailedWriting> {
                                                       widget.debateTopic,
                                                   bookTitle: widget.bookTitle,
                                                   bookAuthor: widget.bookAuthor,
+                                                  quotedId: widget.postId,
                                                   quoteNickname:
                                                       widget.nickname,
                                                   quoteDate: widget.date,

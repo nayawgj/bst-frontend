@@ -10,6 +10,7 @@ class WriteDebateWithQuote extends StatefulWidget {
   final String debateTopic;
   final String bookTitle;
   final String bookAuthor;
+  final int quotedId;
   final String quoteNickname;
   final String quoteDate;
   final String quoteContent;
@@ -20,6 +21,7 @@ class WriteDebateWithQuote extends StatefulWidget {
       required this.debateTopic,
       required this.bookTitle,
       required this.bookAuthor,
+      required this.quotedId,
       required this.quoteNickname,
       required this.quoteDate,
       required this.quoteContent});
@@ -65,7 +67,7 @@ class _WriteDebateWithQuote extends State<WriteDebateWithQuote> {
   @override
   Widget build(BuildContext context) {
     data['debateId'] = widget.debateId;
-    //data['postQuotationId'] = widget.quoteId;
+    data['postQuotationId'] = widget.quotedId;
 
     return Scaffold(
       appBar: AppBar(

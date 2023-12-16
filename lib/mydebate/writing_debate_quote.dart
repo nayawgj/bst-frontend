@@ -10,7 +10,6 @@ class WriteDebateWithQuote extends StatefulWidget {
   final String debateTopic;
   final String bookTitle;
   final String bookAuthor;
-  final int quoteId;
   final String quoteNickname;
   final String quoteDate;
   final String quoteContent;
@@ -21,7 +20,6 @@ class WriteDebateWithQuote extends StatefulWidget {
       required this.debateTopic,
       required this.bookTitle,
       required this.bookAuthor,
-      required this.quoteId,
       required this.quoteNickname,
       required this.quoteDate,
       required this.quoteContent});
@@ -67,7 +65,7 @@ class _WriteDebateWithQuote extends State<WriteDebateWithQuote> {
   @override
   Widget build(BuildContext context) {
     data['debateId'] = widget.debateId;
-    data['postQuotationId'] = widget.quoteId;
+    //data['postQuotationId'] = widget.quoteId;
 
     return Scaffold(
       appBar: AppBar(
@@ -130,8 +128,10 @@ class _WriteDebateWithQuote extends State<WriteDebateWithQuote> {
             // 인용하는 글
             Container(
                 height: 143,
-                decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(side: BorderSide(width: 1))),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: const Color.fromRGBO(32, 96, 79, 1), width: 2),
+                    borderRadius: BorderRadius.circular(5)),
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Column(

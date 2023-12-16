@@ -25,7 +25,7 @@ class WriteDebate extends StatefulWidget {
 
 // 토론글 작성 페이지
 class _WriteDebateState extends State<WriteDebate> {
-  TextEditingController _controller = TextEditingController();
+  //TextEditingController _controller = TextEditingController();
 
   Map<String, dynamic> data = {
     "debateId": 'debateId',

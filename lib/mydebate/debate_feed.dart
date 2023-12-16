@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:booksaeteum/mydebate/debate_page.dart';
 import 'package:booksaeteum/mydebate/writing_debate.dart';
+import 'detailed_quoted_post.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
             'nickname': postItem['userNickname'],
             'userPhoto': postItem['userPhoto'],
             'content': postItem['content'],
-            'quotedPostId': postItem['quotedPostId'],
+            'quotedPostContent': postItem['quotedPostContent'],
             'like': postItem['like'],
             'dislike': postItem['dislike'],
             'isPro': postItem['isPro']
@@ -221,6 +222,7 @@ class ListBox extends StatelessWidget {
     final nickname = post['nickname'] as String;
     final date = post['date'] as String;
     final content = post['content'] as String;
+    final quotedPostContent = post['quotedPostContent'] as String? ?? " ";
     final like = post['like'] as int;
     final dislike = post['dislike'] as int;
 
@@ -229,21 +231,40 @@ class ListBox extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DetailedWriting(
-                      postId: postId,
-                      debateId: debateId,
-                      debateTopic: debateTopic,
-                      bookTitle: bookTitle,
-                      bookAuthor: bookAuthor,
-                      nickname: nickname,
-                      date: formattedDate,
-                      content: content,
-                      like: like,
-                      dislike: dislike,
-                    )));
+        if (quotedPostContent == " ") {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailedWriting(
+                        postId: postId,
+                        debateId: debateId,
+                        debateTopic: debateTopic,
+                        bookTitle: bookTitle,
+                        bookAuthor: bookAuthor,
+                        nickname: nickname,
+                        date: formattedDate,
+                        content: content,
+                        like: like,
+                        dislike: dislike,
+                      )));
+        } else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailedQuotedWriting(
+                        postId: postId,
+                        debateId: debateId,
+                        debateTopic: debateTopic,
+                        bookTitle: bookTitle,
+                        bookAuthor: bookAuthor,
+                        nickname: nickname,
+                        date: formattedDate,
+                        content: content,
+                        quotedPostContent: quotedPostContent,
+                        like: like,
+                        dislike: dislike,
+                      )));
+        }
       },
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),

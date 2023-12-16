@@ -128,7 +128,7 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [          
+                  children: [
                     const Row(
                       children: [Text('100'), Text('개의 글')],
                     ),
@@ -165,8 +165,10 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: ListBox(
-                        post: post,
-                      ),
+                          post: post,
+                          debateTopic: widget.debateTopic,
+                          bookTitle: widget.bookTitle,
+                          bookAuthor: widget.bookAuthor),
                     );
                   },
                 ),
@@ -198,8 +200,16 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
 
 class ListBox extends StatelessWidget {
   late Map<String, dynamic> post;
+  String debateTopic;
+  String bookTitle;
+  String bookAuthor;
 
-  ListBox({super.key, required this.post});
+  ListBox(
+      {super.key,
+      required this.post,
+      required this.debateTopic,
+      required this.bookTitle,
+      required this.bookAuthor});
 
   @override
   Widget build(BuildContext context) {
@@ -215,8 +225,19 @@ class ListBox extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const DetailedWriting()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailedWriting(
+                      debateTopic: debateTopic,
+                      bookTitle: bookTitle,
+                      bookAuthor: bookAuthor,
+                      nickname: nickname,
+                      date: formattedDate,
+                      content: content,
+                      like: like,
+                      dislike: dislike,
+                    )));
       },
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),

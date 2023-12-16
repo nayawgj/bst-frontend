@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
+
+const jwtToken = jwt.jwtToken;
 
 class DetailedWriting extends StatefulWidget {
-  const DetailedWriting({super.key});
+  final String debateTopic;
+  final String bookTitle;
+  final String bookAuthor;
+  final String nickname;
+  final String date;
+  final String content;
+  final int like;
+  final int dislike;
+
+  const DetailedWriting(
+      {super.key,
+      required this.debateTopic,
+      required this.bookTitle,
+      required this.bookAuthor,
+      required this.nickname,
+      required this.date,
+      required this.content,
+      required this.like,
+      required this.dislike});
 
   @override
   State<DetailedWriting> createState() => _DetailedWritingState();
@@ -45,8 +66,8 @@ class _DetailedWritingState extends State<DetailedWriting> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            '내 가족이 바퀴벌레가 된다면?',
+                          Text(
+                            widget.debateTopic,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -59,8 +80,11 @@ class _DetailedWritingState extends State<DetailedWriting> {
                           )
                         ],
                       ),
-                      const Row(
-                        children: [Text('변신, '), Text('프란츠 카프카')],
+                      Row(
+                        children: [
+                          Text(widget.bookTitle),
+                          Text(widget.bookAuthor)
+                        ],
                       ),
                     ],
                   ),
@@ -91,14 +115,14 @@ class _DetailedWritingState extends State<DetailedWriting> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              const Text(
-                                '닉네임',
+                              Text(
+                                widget.nickname,
                               ),
                               const SizedBox(
                                 width: 10,
                               ),
-                              const Text(
-                                '05/30/23',
+                              Text(
+                                widget.date,
                                 style: TextStyle(color: Colors.black45),
                               )
                             ],
@@ -111,8 +135,7 @@ class _DetailedWritingState extends State<DetailedWriting> {
                               ))
                         ],
                       ),
-                      const Text(
-                          '변신은 바로 그의 억압된 소망들을 표현한다. 그는 자신을 멋대로 다루는 고용주와 아버지에게 반항하며 그의 반항은 무의식 속에서 공포의 형상을 만들어낸다. 퇴행을 통해 그레고르는 노예 상태에서 벗어나고 식객의 역할이 바뀐다. 그러나 가족들은 그를 제거해야할 기생충으로 여기며 누이동생이 내린 결정에 의하여 그레고르는 최후를 맞는다. 그레고르의 불행한 실존에 대해 가족이 책임이 없는 것은 아니다. 비인간적인 공포의 형상 속에서 가족 자체의 비인간성이 드러난다. 내 말이 다 맞아 **들아!'),
+                      Text(widget.content),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -126,7 +149,7 @@ class _DetailedWritingState extends State<DetailedWriting> {
                                     color: Colors.red.withOpacity(0.8),
                                     size: 20,
                                   )),
-                              const Text('5'),
+                              Text(widget.like.toString()),
                               const SizedBox(
                                 width: 5,
                               ),
@@ -137,7 +160,7 @@ class _DetailedWritingState extends State<DetailedWriting> {
                                     color: Colors.black54,
                                     size: 20,
                                   )),
-                              const Text('2')
+                              Text(widget.dislike.toString())
                             ],
                           ),
                           // 신고 버튼

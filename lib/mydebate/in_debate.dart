@@ -111,10 +111,10 @@ class _InDebateState extends State<InDebate> {
               // posts
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DetailedWriting()));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const DetailedWriting()));
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),

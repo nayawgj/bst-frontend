@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:booksaeteum/mydebate/debate_page.dart';
+import 'package:booksaeteum/mydebate/writing_debate.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -71,114 +72,134 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
 
     return MaterialApp(
         home: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              elevation: 0.0,
-              leading: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Color.fromRGBO(32, 96, 79, 1),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
-            body: Container(
-                color: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Color.fromRGBO(32, 96, 79, 1),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+      body: Container(
+          color: Colors.white,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                widget.debateTopic,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
-                              ),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.star),
-                                  color: Colors.black26)
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text(widget.bookTitle),
-                              SizedBox(width: 5),
-                              Text(widget.bookAuthor),
-                            ],
-                          )
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          widget.debateTopic,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.star),
+                            color: Colors.black26)
+                      ],
                     ),
-                    SizedBox(
-                      width: screenSize.width,
-                      child: const Divider(
-                        color: Color.fromRGBO(32, 96, 79, 1),
-                        thickness: 1.0,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Row(
-                            children: [Text('100'), Text('개의 글')],
-                          ),
-                          Row(
-                            children: [
-                              const Text('내가 쓴 글'),
-                              const Icon(
-                                Icons.rectangle,
-                                color: Colors.black26,
-                              ),
-                              const Text(' | '),
-                              const Text('최신순'),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.keyboard_arrow_down))
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: screenSize.width,
-                      child: const Divider(
-                        color: Colors.black26,
-                        thickness: 1.0,
-                      ),
-                    ),
-                    // posts
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: postList.length,
-                        itemBuilder: (context, index) {
-                          final post = postList[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: ListBox(
-                              post: post,
-                            ),
-                          );
-                        },
-                      ),
+                    Row(
+                      children: [
+                        Text(widget.bookTitle),
+                        SizedBox(width: 5),
+                        Text(widget.bookAuthor),
+                      ],
                     )
                   ],
-                ))));
+                ),
+              ),
+              SizedBox(
+                width: screenSize.width,
+                child: const Divider(
+                  color: Color.fromRGBO(32, 96, 79, 1),
+                  thickness: 1.0,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Row(
+                      children: [Text('100'), Text('개의 글')],
+                    ),
+                    Row(
+                      children: [
+                        const Text('내가 쓴 글'),
+                        const Icon(
+                          Icons.rectangle,
+                          color: Colors.black26,
+                        ),
+                        const Text(' | '),
+                        const Text('최신순'),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.keyboard_arrow_down))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: screenSize.width,
+                child: const Divider(
+                  color: Colors.black26,
+                  thickness: 1.0,
+                ),
+              ),
+              // posts
+              Flexible(
+                child: ListView.builder(
+                  itemCount: postList.length,
+                  itemBuilder: (context, index) {
+                    final post = postList[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: ListBox(
+                        post: post,
+                      ),
+                    );
+                  },
+                ),
+              )
+            ],
+          )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          bool isBack = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => WriteDebate(
+                      debateId: widget.debateId,
+                      debateTopic: widget.debateTopic,
+                      bookTitle: widget.bookTitle,
+                      bookAuthor: widget.bookAuthor)));
+          if (isBack) {
+            setState(() {
+              fetchData(widget.debateId);
+            });
+          }
+        },
+        backgroundColor: Color.fromRGBO(32, 96, 79, 1),
+        child: const Icon(Icons.add),
+      ),
+    ));
   }
 }
 
 class ListBox extends StatelessWidget {
   final Map<String, dynamic> post;
 
-  const ListBox({super.key, required this.post});
+  ListBox({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -205,7 +226,7 @@ class ListBox extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: 20,
-                    child: Image.asset('asset/profile_user.png'),
+                    child: Image.asset('assets/profile_user.png'),
                   ),
                   const SizedBox(width: 10),
                   Text(nickname),

@@ -185,176 +185,182 @@ class _ReviewDetailState extends State<ReviewDetail> {
                             fit: BoxFit.cover,
                             child: Image.asset('assets/profile_user.png'))),
                   ),
-                  tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  tooltip:
+                      MaterialLocalizations.of(context).openAppDrawerTooltip,
                 ),
               )
             ],
           ),
           body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  reviewTitle ?? "",
-                  style: const TextStyle(
-                      fontSize: 23.0, fontWeight: FontWeight.bold),
-                )),
-            Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 0.0), // Adjust vertical padding here
-                child: Row(
-                  children: [
-                    Image.network(
-                      reviewerPhoto ?? "",
-                      width: 25,
-                      height: 25,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const CircleAvatar(
-                          radius: 12,
-                          backgroundColor: Colors.grey,
-                          child: Icon(
-                            Icons.person,
-                            size: 20,
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      reviewerNickname ?? "",
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    const Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        toggleBookmark();
-                      },
-                      child: Icon(
-                          bookmarked ? Icons.bookmark : Icons.bookmark_border,
-                          size: 24.0,
-                          color: Colors.blue),
-                    )
-                  ],
-                )),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                reviewContent ?? "",
-                style: const TextStyle(
-                  fontSize: 16.0,
-                ),
-              ),
-            ),
-            Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Visibility(
-                    visible: reviewImg != null,
-                    child: Center(
-                        child: Image.network(
-                      reviewImg != null
-                          ? "https://mybst.s3.ap-northeast-2.amazonaws.com/$reviewImg"
-                          : '', // Replace with your image URL
-                      width: 200.0,
-                      height: 200.0,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 200.0,
-                          color: Colors.grey,
-                        );
-                      },
-                    )))),
-            const Divider(
-              color: Colors.black,
-              height: 30.0,
-              thickness: 2.0,
-            ),
-            const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  '댓글',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                )),
-            Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: List.generate(commentData.length, (index) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+              children: [
+                Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      reviewTitle ?? "",
+                      style: const TextStyle(
+                          fontSize: 23.0, fontWeight: FontWeight.bold),
+                    )),
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 0.0), // Adjust vertical padding here
+                    child: Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16.0, top: 8.0),
-                          child: Image.network(
-                            commentData[index]['commenterImg'] ?? "",
-                            width: 25,
-                            height: 25,
-                            errorBuilder: (context, error, stackTrace) {
-                              return const CircleAvatar(
-                                radius: 12,
-                                backgroundColor: Colors.grey,
-                                child: Icon(
-                                  Icons.person,
-                                  size: 20,
-                                ),
-                              );
-                            },
-                          ),
+                        Image.network(
+                          reviewerPhoto ?? "",
+                          width: 25,
+                          height: 25,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const CircleAvatar(
+                              radius: 12,
+                              backgroundColor: Colors.grey,
+                              child: Icon(
+                                Icons.person,
+                                size: 20,
+                              ),
+                            );
+                          },
                         ),
                         const SizedBox(width: 10),
+                        Text(
+                          reviewerNickname ?? "",
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                          ),
+                        ),
+                        const Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            toggleBookmark();
+                          },
+                          child: Icon(
+                              bookmarked
+                                  ? Icons.bookmark
+                                  : Icons.bookmark_border,
+                              size: 24.0,
+                              color: Colors.blue),
+                        )
+                      ],
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    reviewContent ?? "",
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Visibility(
+                        visible: reviewImg != null,
+                        child: Center(
+                            child: Image.network(
+                          reviewImg != null
+                              ? "https://mybst.s3.ap-northeast-2.amazonaws.com/$reviewImg"
+                              : '', // Replace with your image URL
+                          width: 200.0,
+                          height: 200.0,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 200.0,
+                              color: Colors.grey,
+                            );
+                          },
+                        )))),
+                const Divider(
+                  color: Colors.black,
+                  height: 30.0,
+                  thickness: 2.0,
+                ),
+                const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      '댓글',
+                      style: TextStyle(
+                          fontSize: 20.0, fontWeight: FontWeight.bold),
+                    )),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(commentData.length, (index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 16.0, top: 8.0),
+                              child: Image.network(
+                                commentData[index]['commenterImg'] ?? "",
+                                width: 25,
+                                height: 25,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const CircleAvatar(
+                                    radius: 12,
+                                    backgroundColor: Colors.grey,
+                                    child: Icon(
+                                      Icons.person,
+                                      size: 20,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 4.0, top: 8.0, bottom: 4.0),
+                              child: Text(commentData[index]
+                                      ["commenterNickname"] ??
+                                  ""),
+                            ),
+                          ],
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 4.0, top: 8.0, bottom: 4.0),
-                          child: Text(
-                              commentData[index]["commenterNickname"] ?? ""),
+                              left: 16.0, right: 16.0, top: 8.0, bottom: 16.0),
+                          child: Text(commentData[index]["commentText"] ?? ""),
                         ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Divider(
+                            color: Colors.grey,
+                            thickness: 1.0,
+                            height: 0.0,
+                          ),
+                        )
                       ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 16.0, right: 16.0, top: 8.0, bottom: 16.0),
-                      child: Text(commentData[index]["commentText"] ?? ""),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Divider(
-                        color: Colors.grey,
-                        thickness: 1.0,
-                        height: 0.0,
-                      ),
-                    )
-                  ],
-                );
-              }),
+                    );
+                  }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: TextField(
+                        controller: _commentController,
+                        decoration: const InputDecoration(
+                            labelText: "Write a comment..."),
+                      )),
+                      ElevatedButton(
+                          onPressed: () async {
+                            await postComment();
+                            await loadComments();
+                          },
+                          child: const Text('Post'))
+                    ],
+                  ),
+                )
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: TextField(
-                    controller: _commentController,
-                    decoration:
-                        const InputDecoration(labelText: "Write a comment..."),
-                  )),
-                  ElevatedButton(
-                      onPressed: () async {
-                        await postComment();
-                        await loadComments();
-                      },
-                      child: const Text('Post'))
-                ],
-              ),
-            )
-          ],
-        ),
-      )),
+          )),
     );
   }
 }

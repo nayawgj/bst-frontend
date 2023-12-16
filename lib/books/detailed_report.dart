@@ -14,24 +14,24 @@ class _DetailReportState extends State<DetailReport> {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          centerTitle: true,
-          title: const Text(
-            '독후감 상세보기',
-            style: TextStyle(color: Colors.black),
-          ),
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Color.fromRGBO(32, 96, 79, 1),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: Colors.white,
+        //   elevation: 0,
+        //   centerTitle: true,
+        //   title: const Text(
+        //     '독후감 상세보기',
+        //     style: TextStyle(color: Colors.black),
+        //   ),
+        //   leading: IconButton(
+        //     icon: const Icon(
+        //       Icons.arrow_back_ios,
+        //       color: Color.fromRGBO(32, 96, 79, 1),
+        //     ),
+        //     onPressed: () {
+        //       Navigator.of(context).pop();
+        //     },
+        //   ),
+        // ),
         body: Container(
           color: Colors.white,
           child: ListView(

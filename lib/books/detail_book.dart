@@ -177,38 +177,38 @@ class _DetailBookScreenState extends State<DetailBookScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0.0,
-          title: Image.asset('assets/mainlogo.png'),
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Color.fromRGBO(32, 96, 79, 1),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-          actions: [
-            Builder(
-              builder: (context) => IconButton(
-                onPressed: () => Scaffold.of(context).openEndDrawer(),
-                icon: Padding(
-                  padding: const EdgeInsets.only(right: 15),
-                  child: SizedBox(
-                      height: 30,
-                      width: 30,
-                      child: FittedBox(
-                          fit: BoxFit.cover,
-                          child: Image.asset('assets/profile_user.png'))),
-                ),
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              ),
-            )
-          ],
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: Colors.white,
+        //   elevation: 0.0,
+        //   title: Image.asset('assets/mainlogo.png'),
+        //   centerTitle: true,
+        //   leading: IconButton(
+        //     icon: const Icon(
+        //       Icons.arrow_back_ios,
+        //       color: Color.fromRGBO(32, 96, 79, 1),
+        //     ),
+        //     onPressed: () {
+        //       Navigator.of(context).pop();
+        //     },
+        //   ),
+        //   actions: [
+        //     Builder(
+        //       builder: (context) => IconButton(
+        //         onPressed: () => Scaffold.of(context).openEndDrawer(),
+        //         icon: Padding(
+        //           padding: const EdgeInsets.only(right: 15),
+        //           child: SizedBox(
+        //               height: 30,
+        //               width: 30,
+        //               child: FittedBox(
+        //                   fit: BoxFit.cover,
+        //                   child: Image.asset('assets/profile_user.png'))),
+        //         ),
+        //         tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+        //       ),
+        //     )
+        //   ],
+        // ),
         body: Column(children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),

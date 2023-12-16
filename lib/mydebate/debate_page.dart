@@ -1,9 +1,12 @@
+import 'package:booksaeteum/mydebate/writing_debate_quote.dart';
 import 'package:flutter/material.dart';
 import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
 
 const jwtToken = jwt.jwtToken;
 
 class DetailedWriting extends StatefulWidget {
+  final int postId;
+  final int debateId;
   final String debateTopic;
   final String bookTitle;
   final String bookAuthor;
@@ -15,6 +18,8 @@ class DetailedWriting extends StatefulWidget {
 
   const DetailedWriting(
       {super.key,
+      required this.postId,
+      required this.debateId,
       required this.debateTopic,
       required this.bookTitle,
       required this.bookAuthor,
@@ -154,13 +159,39 @@ class _DetailedWritingState extends State<DetailedWriting> {
                                 width: 5,
                               ),
                               IconButton(
-                                  onPressed: () {},
+                                icon: const Icon(
+                                  Icons.thumb_down_alt_outlined,
+                                  color: Colors.black54,
+                                  size: 20,
+                                ),
+                                onPressed: () {},
+                              ),
+                              Text(widget.dislike.toString()),
+                              const SizedBox(width: 5),
+                              IconButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                WriteDebateWithQuote(
+                                                  debateId: widget.debateId,
+                                                  debateTopic:
+                                                      widget.debateTopic,
+                                                  bookTitle: widget.bookTitle,
+                                                  bookAuthor: widget.bookAuthor,
+                                                  quoteId: widget.postId,
+                                                  quoteNickname:
+                                                      widget.nickname,
+                                                  quoteDate: widget.date,
+                                                  quoteContent: widget.content,
+                                                )));
+                                  },
                                   icon: const Icon(
-                                    Icons.thumb_down_alt_outlined,
+                                    Icons.repeat,
                                     color: Colors.black54,
                                     size: 20,
                                   )),
-                              Text(widget.dislike.toString())
                             ],
                           ),
                           // 신고 버튼

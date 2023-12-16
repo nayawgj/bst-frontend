@@ -62,7 +62,6 @@ class _WriteDebateState extends State<WriteDebate> {
 
   @override
   Widget build(BuildContext context) {
-    //String postContent = "";
     data['debateId'] = widget.debateId;
 
     return Scaffold(

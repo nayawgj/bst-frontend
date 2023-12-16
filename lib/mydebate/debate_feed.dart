@@ -50,7 +50,7 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
           final postItem = postData[i];
 
           final post = {
-            'postId': postItem['postID'],
+            'postId': postItem['postId'],
             'date': postItem['date'],
             'nickname': postItem['userNickname'],
             'userPhoto': postItem['userPhoto'],
@@ -166,6 +166,7 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
                       padding: const EdgeInsets.only(bottom: 10),
                       child: ListBox(
                           post: post,
+                          debateId: widget.debateId,
                           debateTopic: widget.debateTopic,
                           bookTitle: widget.bookTitle,
                           bookAuthor: widget.bookAuthor),
@@ -200,12 +201,14 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
 
 class ListBox extends StatelessWidget {
   late Map<String, dynamic> post;
+  int debateId;
   String debateTopic;
   String bookTitle;
   String bookAuthor;
 
   ListBox(
       {super.key,
+      required this.debateId,
       required this.post,
       required this.debateTopic,
       required this.bookTitle,
@@ -214,6 +217,7 @@ class ListBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final userPhoto = post['userPhoto'] as String;
+    final postId = post['postId'] as int;
     final nickname = post['nickname'] as String;
     final date = post['date'] as String;
     final content = post['content'] as String;
@@ -229,6 +233,8 @@ class ListBox extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DetailedWriting(
+                      postId: postId,
+                      debateId: debateId,
                       debateTopic: debateTopic,
                       bookTitle: bookTitle,
                       bookAuthor: bookAuthor,

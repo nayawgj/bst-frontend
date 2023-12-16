@@ -1,5 +1,8 @@
+import 'package:booksaeteum/mydebate/debate_page.dart';
+import 'package:booksaeteum/mydebate/in_debate.dart';
 import 'package:booksaeteum/screen/mainpage.dart';
-import 'package:booksaeteum/mydebate/writing_debate_quote.dart';
+// import 'package:booksaeteum/mydebate/writing_debate_quote.dart';
+import 'package:booksaeteum/mydebate/writing_debate.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -174,9 +174,20 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
             ],
           )),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const WriteDebate()));
+        onPressed: () async {
+          bool isBack = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => WriteDebate(
+                      debateId: widget.debateId,
+                      debateTopic: widget.debateTopic,
+                      bookTitle: widget.bookTitle,
+                      bookAuthor: widget.bookAuthor)));
+          if (isBack) {
+            setState(() {
+              fetchData(widget.debateId);
+            });
+          }
         },
         backgroundColor: Color.fromRGBO(32, 96, 79, 1),
         child: const Icon(Icons.add),

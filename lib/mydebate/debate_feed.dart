@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:booksaeteum/mydebate/debate_page.dart';
 import 'package:booksaeteum/mydebate/writing_debate.dart';
+import 'detailed_quoted_post.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -50,12 +51,12 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
           final postItem = postData[i];
 
           final post = {
-            'postId': postItem['postID'],
+            'postId': postItem['postId'],
             'date': postItem['date'],
             'nickname': postItem['userNickname'],
             'userPhoto': postItem['userPhoto'],
             'content': postItem['content'],
-            'quotedPostId': postItem['quotedPostId'],
+            'quotedPostContent': postItem['quotedPostContent'],
             'like': postItem['like'],
             'dislike': postItem['dislike'],
             'isPro': postItem['isPro']
@@ -128,7 +129,7 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [          
+                  children: [
                     const Row(
                       children: [Text('100'), Text('개의 글')],
                     ),
@@ -165,8 +166,11 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: ListBox(
-                        post: post,
-                      ),
+                          post: post,
+                          debateId: widget.debateId,
+                          debateTopic: widget.debateTopic,
+                          bookTitle: widget.bookTitle,
+                          bookAuthor: widget.bookAuthor),
                     );
                   },
                 ),
@@ -198,15 +202,27 @@ class _DebateFeedScreenState extends State<DebateFeedScreen> {
 
 class ListBox extends StatelessWidget {
   late Map<String, dynamic> post;
+  int debateId;
+  String debateTopic;
+  String bookTitle;
+  String bookAuthor;
 
-  ListBox({super.key, required this.post});
+  ListBox(
+      {super.key,
+      required this.debateId,
+      required this.post,
+      required this.debateTopic,
+      required this.bookTitle,
+      required this.bookAuthor});
 
   @override
   Widget build(BuildContext context) {
     // final userPhoto = post['userPhoto'] as String;
+    final postId = post['postId'] as int;
     final nickname = post['nickname'] as String;
     final date = post['date'] as String;
     final content = post['content'] as String;
+    final quotedPostContent = post['quotedPostContent'] as String? ?? " ";
     final like = post['like'] as int;
     final dislike = post['dislike'] as int;
 
@@ -215,8 +231,40 @@ class ListBox extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const DetailedWriting()));
+        if (quotedPostContent == " ") {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailedWriting(
+                        postId: postId,
+                        debateId: debateId,
+                        debateTopic: debateTopic,
+                        bookTitle: bookTitle,
+                        bookAuthor: bookAuthor,
+                        nickname: nickname,
+                        date: formattedDate,
+                        content: content,
+                        like: like,
+                        dislike: dislike,
+                      )));
+        } else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailedQuotedWriting(
+                        postId: postId,
+                        debateId: debateId,
+                        debateTopic: debateTopic,
+                        bookTitle: bookTitle,
+                        bookAuthor: bookAuthor,
+                        nickname: nickname,
+                        date: formattedDate,
+                        content: content,
+                        quotedPostContent: quotedPostContent,
+                        like: like,
+                        dislike: dislike,
+                      )));
+        }
       },
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),

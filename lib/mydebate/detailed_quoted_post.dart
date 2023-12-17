@@ -4,7 +4,7 @@ import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
 
 const jwtToken = jwt.jwtToken;
 
-class DetailedWriting extends StatefulWidget {
+class DetailedQuotedWriting extends StatefulWidget {
   final int postId;
   final int debateId;
   final String debateTopic;
@@ -13,10 +13,11 @@ class DetailedWriting extends StatefulWidget {
   final String nickname;
   final String date;
   final String content;
+  final String quotedPostContent;
   final int like;
   final int dislike;
 
-  const DetailedWriting(
+  const DetailedQuotedWriting(
       {super.key,
       required this.postId,
       required this.debateId,
@@ -26,14 +27,15 @@ class DetailedWriting extends StatefulWidget {
       required this.nickname,
       required this.date,
       required this.content,
+      required this.quotedPostContent,
       required this.like,
       required this.dislike});
 
   @override
-  State<DetailedWriting> createState() => _DetailedWritingState();
+  State<DetailedQuotedWriting> createState() => _DetailedWritingState();
 }
 
-class _DetailedWritingState extends State<DetailedWriting> {
+class _DetailedWritingState extends State<DetailedQuotedWriting> {
   @override
   void initState() {
     super.initState();
@@ -140,7 +142,40 @@ class _DetailedWritingState extends State<DetailedWriting> {
                               ))
                         ],
                       ),
-                      Text(widget.content),
+                      Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: const Color.fromRGBO(32, 96, 79, 1),
+                                  width: 2),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 8),
+                                SizedBox(
+                                    child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  child: Text(
+                                    widget.quotedPostContent,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                  ),
+                                )),
+                              ],
+                            ),
+                          )),
+                      const SizedBox(height: 10),
+                      Text(
+                        widget.content,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

@@ -1,13 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:booksaeteum/jwt_token/jwt.dart' as jwt;
+
+const jwtToken = jwt.jwtToken;
+
+class WriteDebateWithQuote extends StatefulWidget {
+  final int debateId;
+  final String debateTopic;
+  final String bookTitle;
+  final String bookAuthor;
+  final int quotedId;
+  final String quoteNickname;
+  final String quoteDate;
+  final String quoteContent;
+
+  const WriteDebateWithQuote(
+      {super.key,
+      required this.debateId,
+      required this.debateTopic,
+      required this.bookTitle,
+      required this.bookAuthor,
+      required this.quotedId,
+      required this.quoteNickname,
+      required this.quoteDate,
+      required this.quoteContent});
+
+  @override
+  _WriteDebateWithQuote createState() => _WriteDebateWithQuote();
+}
 
 // 토론글 작성 페이지 with 인용
-class WriteDebateWithQuote extends StatelessWidget {
-  const WriteDebateWithQuote({super.key});
+class _WriteDebateWithQuote extends State<WriteDebateWithQuote> {
+  Map<String, dynamic> data = {
+    "debateId": 'debateId',
+    "postContent": 'postContent',
+    "postPhoto": null,
+    "postQuotationId": 'postQuotationId',
+    "postIsPro": 0
+  };
+  Future<void> postData() async {
+    final url =
+        Uri.parse('http://10.0.2.2:8080/debate/feed/${widget.debateId}/create');
+
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode(data),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $jwtToken'
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print("Success: ${response.body}");
+        // Navigator.of(context).pop();
+      } else {
+        print("Error: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("Exeption: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    data['debateId'] = widget.debateId;
+    data['postQuotationId'] = widget.quotedId;
+
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: Padding(
           padding: EdgeInsets.only(left: 8.0),
           //취소버튼
@@ -34,7 +98,8 @@ class WriteDebateWithQuote extends StatelessWidget {
               //업로드 버튼
               child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    postData();
+                    Navigator.pop(context, true);
                   },
                   style: ElevatedButton.styleFrom(
                       foregroundColor: const Color.fromRGBO(32, 96, 79, 1),
@@ -65,8 +130,10 @@ class WriteDebateWithQuote extends StatelessWidget {
             // 인용하는 글
             Container(
                 height: 143,
-                decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(side: BorderSide(width: 1))),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                        color: const Color.fromRGBO(32, 96, 79, 1), width: 2),
+                    borderRadius: BorderRadius.circular(5)),
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Column(
@@ -74,53 +141,55 @@ class WriteDebateWithQuote extends StatelessWidget {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          CircleAvatar(
-                            //인용 프로필 사진
-                            radius: 16,
-                            backgroundImage:
-                                AssetImage('assets/profile_user.png'),
-                          ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Text(
-                            "닉네임",
-                            style: TextStyle(fontSize: 15),
+                            widget.quoteNickname,
+                            style: const TextStyle(fontSize: 15),
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
                           Text(
-                            "-05/30/23",
-                            style: TextStyle(fontSize: 13, color: Colors.grey),
+                            widget.quoteDate,
+                            style: const TextStyle(
+                                fontSize: 13, color: Colors.grey),
                             textAlign: TextAlign.center,
                           ),
                         ],
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       SizedBox(
                           child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         child: Text(
-                          "『문과 남자의 과학 공부』는 역사ㆍ정치ㆍ경제ㆍ글쓰기ㆍ여행 등 인문학 분야의 글을 써온 작가 유시민이 과학을 소재로 쓴 첫 책이다. 유시민에게 “지적  ...",
-                          style: TextStyle(
+                          widget.quoteContent,
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
                         ),
                       )),
                     ],
                   ),
                 )),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             // 게시글 작성란
             TextField(
               maxLines: null,
-              decoration: InputDecoration(
+              onChanged: (text) {
+                setState(() {
+                  data['postContent'] = text;
+                });
+              },
+              decoration: const InputDecoration(
                 hintText: '의견을 작성해주세요.',
                 border: InputBorder.none,
               ),
@@ -129,7 +198,7 @@ class WriteDebateWithQuote extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           border: Border(
             top: BorderSide(width: 0.5, color: Colors.black), // 구분선
           ),

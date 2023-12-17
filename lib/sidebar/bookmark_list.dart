@@ -50,116 +50,53 @@ class _BookMarksState extends State<BookMarks> {
           color: Colors.white,
           child: Stack(
             children: [
-              ListView(
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+                child: Container(
+                  height: 1,
+                  color: Colors.grey,
+                ),
+              ),
+              Container(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 28, vertical: 23),
+                  child: Text(
+                    '문과 남자의 과학 공부',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 19,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                  child: Positioned(
+                right: 30,
+                top: 24,
+                child: Image.asset(
+                  'assets/book.png',
+                  width: 24,
+                ),
+              )),
+              Container(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 60),
+                  child: Text(
+                    "『문과 남자의 과학 공부』는 역사ㆍ정치ㆍ경제ㆍ글쓰기ㆍ여행 등 인문학 분야의 글을 써온 작가 유시민이 과학을 소재로 쓴 첫 책이다. 유시민에게 “지적 자극과...",
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const OutlineDebate()));
-                    },
-                    child: Container(
-                      height: 90,
-                      width: 100,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: const GradientBoxBorder(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Color.fromRGBO(32, 96, 79, 1),
-                                    Color.fromRGBO(245, 245, 245, 1)
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter),
-                              width: 2.5),
-                          borderRadius: BorderRadius.circular(5),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(0, 3),
-                              blurRadius: 3,
-                              color: Colors.black.withOpacity(0.3),
-                              //spreadRadius: 5
-                            ),
-                          ]),
-                      child: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Text('책 제목'),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text('저자')
-                              ],
-                            ),
-                            Text(
-                              '토론 주제',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text('#토론 방식')
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 90,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: const GradientBoxBorder(
-                            gradient: LinearGradient(
-                                colors: [
-                                  Color.fromRGBO(32, 96, 79, 1),
-                                  Color.fromRGBO(245, 245, 245, 1)
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter),
-                            width: 2.5),
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: const Offset(0, 3),
-                            blurRadius: 3,
-                            color: Colors.black.withOpacity(0.3),
-                            //spreadRadius: 5
-                          ),
-                        ]),
-                    child: const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text('책 제목'),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text('저자')
-                            ],
-                          ),
-                          Text(
-                            '토론 주제',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text('#토론 방식')
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                    EdgeInsets.symmetric(horizontal: 15.0, vertical: 145.0),
+                child: Container(
+                  height: 1,
+                  color: Colors.grey,
+                ),
               ),
             ],
           ),

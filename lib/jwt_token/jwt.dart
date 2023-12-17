@@ -1,2 +1,2 @@
 const String jwtToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJzb2NpYWxJZCI6IkdNQklxTW43NkpEQXUxQmMxRzVSdXd5M1lTTHdfSGhkNm9kaFl6QUJfWTgiLCJpYXQiOjE3MDI1NjgxOTYsImV4cCI6MTcwMjU3MTc5Nn0.xuRUiKMApUlXU0WqZx_prG6trjYKe2EtwLQSWcBHIu4";
+    "";

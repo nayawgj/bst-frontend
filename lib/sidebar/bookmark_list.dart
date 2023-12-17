@@ -83,7 +83,7 @@ class _BookMarksState extends State<BookMarks> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25, vertical: 60),
                   child: Text(
-                    "『문과 남자의 과학 공부』는 역사ㆍ정치ㆍ경제ㆍ글쓰기ㆍ여행 등 인문학 분야의 글을 써온 작가 유시민이 과학을 소재로 쓴 첫 책이다. 유시민에게 “지적 자극과...",
+                    "나는 과학이 철학보다 훌륭하다고 생각하지 않는다. 하지만 역사적인 생각을 갖는다면, 수학과 과학을 이해하게 되면 내가 살아가는 삶을 더욱 선명하게 볼 수 ...",
                     style: TextStyle(
                       fontSize: 15,
                     ),

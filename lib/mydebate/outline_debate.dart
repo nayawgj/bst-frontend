@@ -1,4 +1,5 @@
 import 'package:booksaeteum/mydebate/in_debate.dart';
+import 'package:booksaeteum/mydebate/debate_feed.dart';
 import 'package:flutter/material.dart';
 
 class OutlineDebate extends StatefulWidget {
@@ -61,7 +62,7 @@ class _OutlineDebateState extends State<OutlineDebate> {
                     children: [
                       // debate title
                       Text(
-                        '내 가족이 바퀴벌레가 된다면?',
+                        '지금 무엇에 중독돼있나요?',
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold),
                       ),
@@ -69,38 +70,6 @@ class _OutlineDebateState extends State<OutlineDebate> {
                         height: 10,
                       ),
                       // book title & writer & category
-                      Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '책',
-                                style: TextStyle(color: Colors.black54),
-                              ),
-                              Text(
-                                '저자',
-                                style: TextStyle(color: Colors.black54),
-                              ),
-                              Text(
-                                '카테고리',
-                                style: TextStyle(color: Colors.black54),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('변신'),
-                              Text('프란츠 카프카'),
-                              Text('청소년 문학'),
-                            ],
-                          )
-                        ],
-                      )
                     ],
                   ),
                 ),
@@ -137,7 +106,7 @@ class _OutlineDebateState extends State<OutlineDebate> {
                         height: 10,
                       ),
                       Text(
-                          "프란츠 카프카의 대표작 '변신'을 읽고 내 가족이 바퀴벌레가 된다면 나는 어떻게 했을 것 같은지 자유롭게 얘기하는 토론입니다!"),
+                          "디지털 세상의 등장은 이런 자극들에 날개를 달아주었다. 스마트폰은 컴퓨터 세대에게 쉴 새 없이 디지털 도파민을 전달하는 현대판 피하주사침이 됐다. 우리는 도파민, 자본주의, 디지털이 결합된 탐닉의 사회, 도파민네이션에 살고 있다. 이제 누구도 중독에서 자유로울 수 없다."),
                       SizedBox(
                         height: 10,
                       ),
@@ -235,9 +204,9 @@ class _OutlineDebateState extends State<OutlineDebate> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('변신'),
-                              Text('프란츠 카프카'),
-                              Text('청소년 문학'),
+                              Text('도파민네이션'),
+                              Text('애나 렘키'),
+                              Text('인문'),
                             ],
                           )
                         ],
@@ -278,32 +247,34 @@ class _OutlineDebateState extends State<OutlineDebate> {
                       ),
                       Row(
                         children: [
-                          Text(
-                            '비밀번호',
-                            style: TextStyle(color: Colors.black54),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            // Added this Expanded widget
-                            child: SizedBox(
-                              width: 50,
-                              height: 25,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 5.0, horizontal: 10.0),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Colors.black54,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          Text('누구나 입장 가능',
+                              style: TextStyle(color: Colors.black54))
+                          // Text(
+                          //   '비밀번호',
+                          //   style: TextStyle(color: Colors.black54),
+                          // ),
+                          // SizedBox(
+                          //   width: 10,
+                          // ),
+                          // Expanded(
+                          //   // Added this Expanded widget
+                          //   child: SizedBox(
+                          //     width: 50,
+                          //     height: 25,
+                          //     child: TextField(
+                          //       decoration: InputDecoration(
+                          //         contentPadding: EdgeInsets.symmetric(
+                          //             vertical: 5.0, horizontal: 10.0),
+                          //         border: OutlineInputBorder(
+                          //           borderSide: BorderSide(
+                          //             color: Colors.black54,
+                          //             width: 1.0,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ],
@@ -320,7 +291,12 @@ class _OutlineDebateState extends State<OutlineDebate> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const InDebate()),
+                              builder: (context) => const DebateFeedScreen(
+                                    debateId: 110,
+                                    debateTopic: '지금 무엇에 중독돼있나요?',
+                                    bookTitle: '도파민네이션',
+                                    bookAuthor: '애나 렘키',
+                                  )),
                         );
                       },
                       label: const Text('  토론 참여하기  '),

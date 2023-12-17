@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:booksaeteum/home/new_room.dart';
 import 'package:booksaeteum/home/popular_room.dart';
+import 'package:booksaeteum/home/popular.dart';
 import 'package:booksaeteum/home/search_result.dart';
 import 'package:booksaeteum/models/debate_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -200,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const PopularRoom()),
+                                                  const Popular()),
                                         );
                                       },
                                       icon: const Icon(
@@ -265,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       children: [
                                                         Padding(
                                                           padding: const EdgeInsets
-                                                                  .only(
+                                                              .only(
                                                               left:
                                                                   15.0), // 왼쪽 패딩 추가
                                                           child: Text(
@@ -289,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             height: 9),
                                                         Padding(
                                                           padding: const EdgeInsets
-                                                                  .only(
+                                                              .only(
                                                               left:
                                                                   15.0), // 왼쪽 패딩 추가
                                                           child: Text(
@@ -314,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         Padding(
                                                             padding:
                                                                 const EdgeInsets
-                                                                        .only(
+                                                                    .only(
                                                                     left:
                                                                         15.0), // 왼쪽 패딩 추가
                                                             child: Text(
@@ -430,7 +431,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       children: [
                                                         Padding(
                                                           padding: const EdgeInsets
-                                                                  .only(
+                                                              .only(
                                                               left:
                                                                   15.0), // 왼쪽 패딩 추가
                                                           child: Text(
@@ -454,7 +455,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             height: 9),
                                                         Padding(
                                                           padding: const EdgeInsets
-                                                                  .only(
+                                                              .only(
                                                               left:
                                                                   15.0), // 왼쪽 패딩 추가
                                                           child: Text(
@@ -478,7 +479,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             height: 10),
                                                         Padding(
                                                           padding: const EdgeInsets
-                                                                  .only(
+                                                              .only(
                                                               left:
                                                                   15.0), // 왼쪽 패딩 추가
                                                           child: Text(
